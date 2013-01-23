@@ -14,8 +14,8 @@ namespace SharpMapSource
     {
         private SharpMap.Map _sharpMap;
         private const float ZOOM_FACTOR = 0.3f;
-        const String DATA_NAME = "World Countries";
-        const String DATA_PATH = "Data//world_adm0.shp";
+        private String DATA_NAME = "World Countries";
+        private String DATA_PATH = "Data//world_adm0.shp";
 
         public Main()
         {
@@ -23,13 +23,25 @@ namespace SharpMapSource
             _sharpMap = new SharpMap.Map(this.pbxMapa.Size);
             _sharpMap.BackColor = Color.WhiteSmoke;
 
-            SharpMap.Layers.VectorLayer layer = new SharpMap.Layers.VectorLayer(DATA_NAME);
-            layer.DataSource = new SharpMap.Data.Providers.ShapeFile(DATA_PATH);
+            String path;
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "shp Files (.shp)|*.shp|All Files (*.*)|*.*";
+            dialog.FilterIndex = 1;
+            dialog.Multiselect = false;
+            DialogResult res = dialog.ShowDialog();
+            if (res == DialogResult.OK)
+                path = dialog.FileName;
+            else
+                path = DATA_PATH;
+            //SharpMap.Layers.VectorLayer layer = new SharpMap.Layers.VectorLayer(DATA_NAME);
+            //layer.DataSource = new SharpMap.Data.Providers.ShapeFile(DATA_PATH);
+            SharpMap.Layers.VectorLayer layer = new SharpMap.Layers.VectorLayer(dialog.SafeFileName);
+            layer.DataSource = new SharpMap.Data.Providers.ShapeFile(path);
             layer.Style.Fill = Brushes.LightGreen;
             layer.Style.EnableOutline = true;
             layer.Style.Outline = Pens.DarkGreen;
-
-            SharpMap.Layers.LabelLayer labelLayer = new SharpMap.Layers.LabelLayer("Country Names");
+            //dodavanje labele
+            /*SharpMap.Layers.LabelLayer labelLayer = new SharpMap.Layers.LabelLayer("Country Names");
             labelLayer.DataSource = layer.DataSource;
             labelLayer.LabelColumn = "NAME";
             labelLayer.Style.CollisionDetection = true;
@@ -38,8 +50,9 @@ namespace SharpMapSource
             labelLayer.MultipartGeometryBehaviour = SharpMap.Layers.LabelLayer.MultipartGeometryBehaviourEnum.Largest;
             labelLayer.Style.Font = new Font(FontFamily.GenericSansSerif, 8);
 
-            _sharpMap.Layers.Add(labelLayer);
+            _sharpMap.Layers.Add(labelLayer);*/
             _sharpMap.Layers.Add(layer);
+            this.lbxLayers.Items.Add(layer.LayerName);
             _sharpMap.ZoomToExtents();
 
             RefreshMap();
@@ -86,6 +99,47 @@ namespace SharpMapSource
         {
             SharpMap.Geometries.Point p = _sharpMap.ImageToWorld(new PointF(e.X, e.Y));
             lbCoord.Text = "Coord:" + p.X + " : " + p.Y;
+        }
+
+        private void brnAddLayer_Click(object sender, EventArgs e)
+        {
+            String path;
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "shp Files (.shp)|*.shp|All Files (*.*)|*.*";
+            dialog.FilterIndex = 1;
+            dialog.Multiselect = false;
+            DialogResult res = dialog.ShowDialog();
+            if (res == DialogResult.OK)
+                path = dialog.FileName;
+            else
+                path = DATA_PATH;
+            SharpMap.Layers.VectorLayer layer = new SharpMap.Layers.VectorLayer(dialog.SafeFileName);
+            //layer.DataSource = new SharpMap.Data.Providers.ShapeFile(DATA_PATH);
+            layer.DataSource = new SharpMap.Data.Providers.ShapeFile(path);
+            layer.Style.Fill = Brushes.Red;
+            layer.Style.EnableOutline = true;
+            layer.Style.Outline = Pens.OrangeRed;
+
+            _sharpMap.Layers.Add(layer);
+            _sharpMap.ZoomToExtents();
+            RefreshMap();
+            this.lbxLayers.Items.Add(layer.LayerName);
+        }
+
+        private void btnRemoveLayer_Click(object sender, EventArgs e)
+        {
+            if (this.lbxLayers.SelectedIndex != 0)
+            {
+                _sharpMap.Layers.RemoveAt(lbxLayers.SelectedIndex);
+                lbxLayers.Items.RemoveAt(lbxLayers.SelectedIndex);
+                RefreshMap();
+            }
+                
+        }
+
+        private void btnEditLayer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

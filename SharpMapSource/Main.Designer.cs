@@ -33,6 +33,10 @@
             this.btnZoomFull = new System.Windows.Forms.Button();
             this.pbxMapa = new System.Windows.Forms.PictureBox();
             this.lbCoord = new System.Windows.Forms.Label();
+            this.brnAddLayer = new System.Windows.Forms.Button();
+            this.btnRemoveLayer = new System.Windows.Forms.Button();
+            this.lbxLayers = new System.Windows.Forms.ListBox();
+            this.btnEditLayer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxMapa)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,7 +74,7 @@
             // 
             this.pbxMapa.Location = new System.Drawing.Point(12, 41);
             this.pbxMapa.Name = "pbxMapa";
-            this.pbxMapa.Size = new System.Drawing.Size(747, 301);
+            this.pbxMapa.Size = new System.Drawing.Size(492, 288);
             this.pbxMapa.TabIndex = 3;
             this.pbxMapa.TabStop = false;
             this.pbxMapa.Click += new System.EventHandler(this.pbxMapa_Click);
@@ -79,17 +83,59 @@
             // lbCoord
             // 
             this.lbCoord.AutoSize = true;
-            this.lbCoord.Location = new System.Drawing.Point(255, 17);
+            this.lbCoord.Location = new System.Drawing.Point(9, 332);
             this.lbCoord.Name = "lbCoord";
             this.lbCoord.Size = new System.Drawing.Size(66, 13);
             this.lbCoord.TabIndex = 4;
             this.lbCoord.Text = "Coordinates:";
+            // 
+            // brnAddLayer
+            // 
+            this.brnAddLayer.Location = new System.Drawing.Point(255, 12);
+            this.brnAddLayer.Name = "brnAddLayer";
+            this.brnAddLayer.Size = new System.Drawing.Size(75, 23);
+            this.brnAddLayer.TabIndex = 5;
+            this.brnAddLayer.Text = "Add Layer";
+            this.brnAddLayer.UseVisualStyleBackColor = true;
+            this.brnAddLayer.Click += new System.EventHandler(this.brnAddLayer_Click);
+            // 
+            // btnRemoveLayer
+            // 
+            this.btnRemoveLayer.Location = new System.Drawing.Point(663, 12);
+            this.btnRemoveLayer.Name = "btnRemoveLayer";
+            this.btnRemoveLayer.Size = new System.Drawing.Size(96, 23);
+            this.btnRemoveLayer.TabIndex = 6;
+            this.btnRemoveLayer.Text = "Remove Layer";
+            this.btnRemoveLayer.UseVisualStyleBackColor = true;
+            this.btnRemoveLayer.Click += new System.EventHandler(this.btnRemoveLayer_Click);
+            // 
+            // lbxLayers
+            // 
+            this.lbxLayers.FormattingEnabled = true;
+            this.lbxLayers.Location = new System.Drawing.Point(511, 41);
+            this.lbxLayers.Name = "lbxLayers";
+            this.lbxLayers.Size = new System.Drawing.Size(248, 303);
+            this.lbxLayers.TabIndex = 7;
+            // 
+            // btnEditLayer
+            // 
+            this.btnEditLayer.Location = new System.Drawing.Point(582, 13);
+            this.btnEditLayer.Name = "btnEditLayer";
+            this.btnEditLayer.Size = new System.Drawing.Size(75, 23);
+            this.btnEditLayer.TabIndex = 8;
+            this.btnEditLayer.Text = "Edit Layer";
+            this.btnEditLayer.UseVisualStyleBackColor = true;
+            this.btnEditLayer.Click += new System.EventHandler(this.btnEditLayer_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 354);
+            this.Controls.Add(this.btnEditLayer);
+            this.Controls.Add(this.lbxLayers);
+            this.Controls.Add(this.btnRemoveLayer);
+            this.Controls.Add(this.brnAddLayer);
             this.Controls.Add(this.lbCoord);
             this.Controls.Add(this.pbxMapa);
             this.Controls.Add(this.btnZoomFull);
@@ -111,6 +157,10 @@
         private System.Windows.Forms.Button btnZoomFull;
         private System.Windows.Forms.PictureBox pbxMapa;
         private System.Windows.Forms.Label lbCoord;
+        private System.Windows.Forms.Button brnAddLayer;
+        private System.Windows.Forms.Button btnRemoveLayer;
+        private System.Windows.Forms.ListBox lbxLayers;
+        private System.Windows.Forms.Button btnEditLayer;
     }
 }
 
