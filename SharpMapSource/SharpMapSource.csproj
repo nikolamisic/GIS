@@ -58,11 +58,29 @@
     <Reference Include="DotSpatial.Projections">
       <HintPath>..\ExternalReferences\DotSpatial.Projections.dll</HintPath>
     </Reference>
+    <Reference Include="gdal_csharp">
+      <HintPath>..\ExternalReferences\References4SharpMap.Extensions\gdal_csharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GeoAPI">
+      <HintPath>..\ExternalReferences\References4SharpMap.Extensions\GeoAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\ExternalReferences\References4SharpMap.Extensions\Mono.Security.dll</HintPath>
+    </Reference>
     <Reference Include="NetTopologySuite">
       <HintPath>..\ExternalReferences\NetTopologySuite.dll</HintPath>
     </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>..\ExternalReferences\References4SharpMap.Extensions\Npgsql.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\ExternalReferences\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="ogr_csharp">
+      <HintPath>..\ExternalReferences\References4SharpMap.Extensions\ogr_csharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess">
+      <HintPath>..\ExternalReferences\References4SharpMap.Extensions\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="ProjNET">
       <HintPath>..\ExternalReferences\ProjNET.dll</HintPath>
@@ -79,14 +97,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -108,6 +129,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpMap.Extensions\SharpMap.Extensions.VS2010.csproj">
+      <Project>{a4140c12-53f5-438c-8d24-9e48c504fecf}</Project>
+      <Name>SharpMap.Extensions.VS2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpMap.UI\SharpMap.UI.VS2010.csproj">
+      <Project>{dd1cc1db-4bf9-4c88-a100-733d84795f3a}</Project>
+      <Name>SharpMap.UI.VS2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpMap\SharpMap.VS2010.csproj">
+      <Project>{c83777fc-aabb-47d9-911f-d76255d4d541}</Project>
+      <Name>SharpMap.VS2010</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
