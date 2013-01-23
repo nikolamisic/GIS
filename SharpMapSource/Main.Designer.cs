@@ -32,6 +32,7 @@
             this.btnZoomOut = new System.Windows.Forms.Button();
             this.btnZoomFull = new System.Windows.Forms.Button();
             this.pbxMapa = new System.Windows.Forms.PictureBox();
+            this.lbCoord = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbxMapa)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,12 +74,23 @@
             this.pbxMapa.TabIndex = 3;
             this.pbxMapa.TabStop = false;
             this.pbxMapa.Click += new System.EventHandler(this.pbxMapa_Click);
+            this.pbxMapa.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbxMapa_MouseMove);
+            // 
+            // lbCoord
+            // 
+            this.lbCoord.AutoSize = true;
+            this.lbCoord.Location = new System.Drawing.Point(255, 17);
+            this.lbCoord.Name = "lbCoord";
+            this.lbCoord.Size = new System.Drawing.Size(66, 13);
+            this.lbCoord.TabIndex = 4;
+            this.lbCoord.Text = "Coordinates:";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 354);
+            this.Controls.Add(this.lbCoord);
             this.Controls.Add(this.pbxMapa);
             this.Controls.Add(this.btnZoomFull);
             this.Controls.Add(this.btnZoomOut);
@@ -88,6 +100,7 @@
             this.Text = "Main";
             ((System.ComponentModel.ISupportInitialize)(this.pbxMapa)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -97,6 +110,7 @@
         private System.Windows.Forms.Button btnZoomOut;
         private System.Windows.Forms.Button btnZoomFull;
         private System.Windows.Forms.PictureBox pbxMapa;
+        private System.Windows.Forms.Label lbCoord;
     }
 }
 

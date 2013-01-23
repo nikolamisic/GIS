@@ -81,5 +81,11 @@ namespace SharpMapSource
                 RefreshMap();
             }
         }
+
+        private void pbxMapa_MouseMove(object sender, MouseEventArgs e)
+        {
+            SharpMap.Geometries.Point p = _sharpMap.ImageToWorld(new PointF(e.X, e.Y));
+            lbCoord.Text = "Coord:" + p.X + " : " + p.Y;
+        }
     }
 }
