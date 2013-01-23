@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OSGeo.GDAL;
 
 namespace SharpMapSource
 {
@@ -23,7 +24,7 @@ namespace SharpMapSource
             _sharpMap = new SharpMap.Map(this.pbxMapa.Size);
             _sharpMap.BackColor = Color.WhiteSmoke;
 
-            String path;
+            /*String path;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "shp Files (.shp)|*.shp|All Files (*.*)|*.*";
             dialog.FilterIndex = 1;
@@ -39,7 +40,7 @@ namespace SharpMapSource
             layer.DataSource = new SharpMap.Data.Providers.ShapeFile(path);
             layer.Style.Fill = Brushes.LightGreen;
             layer.Style.EnableOutline = true;
-            layer.Style.Outline = Pens.DarkGreen;
+            layer.Style.Outline = Pens.DarkGreen;*/
             //dodavanje labele
             /*SharpMap.Layers.LabelLayer labelLayer = new SharpMap.Layers.LabelLayer("Country Names");
             labelLayer.DataSource = layer.DataSource;
@@ -51,9 +52,9 @@ namespace SharpMapSource
             labelLayer.Style.Font = new Font(FontFamily.GenericSansSerif, 8);
 
             _sharpMap.Layers.Add(labelLayer);*/
-            _sharpMap.Layers.Add(layer);
+           /* _sharpMap.Layers.Add(layer);
             this.lbxLayers.Items.Add(layer.LayerName);
-            _sharpMap.ZoomToExtents();
+            _sharpMap.ZoomToExtents();*/
 
             RefreshMap();
         }
@@ -124,10 +125,17 @@ namespace SharpMapSource
             layer.Style.EnableOutline = true;
             layer.Style.Outline = Pens.OrangeRed;
 
-            _sharpMap.Layers.Add(layer);
-            _sharpMap.ZoomToExtents();
-            RefreshMap();
-            this.lbxLayers.Items.Add(layer.LayerName);
+            try
+            {
+                _sharpMap.Layers.Add(layer);
+                _sharpMap.ZoomToExtents();
+                RefreshMap();
+                this.lbxLayers.Items.Add(layer.LayerName);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Layer already inserted");
+            }
         }
 
         private void btnRemoveLayer_Click(object sender, EventArgs e)
@@ -148,6 +156,27 @@ namespace SharpMapSource
         private void btnEditLayer_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAddRaster_Click(object sender, EventArgs e)
+        {
+            SharpMap.Layers.ILayer layer = _sharpMap.Layers["RasterLayer"];
+            String path;
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+            DialogResult res = dialog.ShowDialog();
+            if (res == DialogResult.OK)
+            {
+                path = dialog.FileName;
+                /*SharpMap.Layers.GdalRasterLayer rasterLayer = new SharpMap.Layers.GdalRasterLayer(dialog.SafeFileName, path);
+                rasterLayer.ReprojectToMap(_sharpMap);
+                _sharpMap.Layers.Add(rasterLayer);
+                _sharpMap.ZoomToExtents();
+                lbxLayers.Items.Add(dialog.SafeFileName);
+                RefreshMap();*/
+            }
+            else
+                path = DATA_PATH;
         }
     }
 }

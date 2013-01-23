@@ -37,6 +37,7 @@
             this.btnRemoveLayer = new System.Windows.Forms.Button();
             this.lbxLayers = new System.Windows.Forms.ListBox();
             this.btnEditLayer = new System.Windows.Forms.Button();
+            this.btnAddRaster = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxMapa)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,7 +102,7 @@
             // 
             // btnRemoveLayer
             // 
-            this.btnRemoveLayer.Location = new System.Drawing.Point(582, 12);
+            this.btnRemoveLayer.Location = new System.Drawing.Point(663, 12);
             this.btnRemoveLayer.Name = "btnRemoveLayer";
             this.btnRemoveLayer.Size = new System.Drawing.Size(96, 23);
             this.btnRemoveLayer.TabIndex = 6;
@@ -114,12 +115,12 @@
             this.lbxLayers.FormattingEnabled = true;
             this.lbxLayers.Location = new System.Drawing.Point(511, 41);
             this.lbxLayers.Name = "lbxLayers";
-            this.lbxLayers.Size = new System.Drawing.Size(248, 303);
+            this.lbxLayers.Size = new System.Drawing.Size(248, 277);
             this.lbxLayers.TabIndex = 7;
             // 
             // btnEditLayer
             // 
-            this.btnEditLayer.Location = new System.Drawing.Point(684, 12);
+            this.btnEditLayer.Location = new System.Drawing.Point(684, 327);
             this.btnEditLayer.Name = "btnEditLayer";
             this.btnEditLayer.Size = new System.Drawing.Size(75, 23);
             this.btnEditLayer.TabIndex = 8;
@@ -127,11 +128,22 @@
             this.btnEditLayer.UseVisualStyleBackColor = true;
             this.btnEditLayer.Click += new System.EventHandler(this.btnEditLayer_Click);
             // 
+            // btnAddRaster
+            // 
+            this.btnAddRaster.Location = new System.Drawing.Point(582, 13);
+            this.btnAddRaster.Name = "btnAddRaster";
+            this.btnAddRaster.Size = new System.Drawing.Size(75, 23);
+            this.btnAddRaster.TabIndex = 9;
+            this.btnAddRaster.Text = "Add Raster";
+            this.btnAddRaster.UseVisualStyleBackColor = true;
+            this.btnAddRaster.Click += new System.EventHandler(this.btnAddRaster_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 354);
+            this.Controls.Add(this.btnAddRaster);
             this.Controls.Add(this.btnEditLayer);
             this.Controls.Add(this.lbxLayers);
             this.Controls.Add(this.btnRemoveLayer);
@@ -161,6 +173,7 @@
         private System.Windows.Forms.Button btnRemoveLayer;
         private System.Windows.Forms.ListBox lbxLayers;
         private System.Windows.Forms.Button btnEditLayer;
+        private System.Windows.Forms.Button btnAddRaster;
     }
 }
 

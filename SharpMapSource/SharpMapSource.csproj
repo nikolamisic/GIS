@@ -58,7 +58,8 @@
     <Reference Include="DotSpatial.Projections">
       <HintPath>..\ExternalReferences\DotSpatial.Projections.dll</HintPath>
     </Reference>
-    <Reference Include="gdal_csharp">
+    <Reference Include="gdal_csharp, Version=1.0.3671.21225, Culture=neutral, PublicKeyToken=db5a52b08dc5b321">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalReferences\References4SharpMap.Extensions\gdal_csharp.dll</HintPath>
     </Reference>
     <Reference Include="GeoAPI">
