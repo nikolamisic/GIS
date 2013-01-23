@@ -91,7 +91,7 @@
             // 
             // brnAddLayer
             // 
-            this.brnAddLayer.Location = new System.Drawing.Point(255, 12);
+            this.brnAddLayer.Location = new System.Drawing.Point(501, 12);
             this.brnAddLayer.Name = "brnAddLayer";
             this.brnAddLayer.Size = new System.Drawing.Size(75, 23);
             this.brnAddLayer.TabIndex = 5;
@@ -101,7 +101,7 @@
             // 
             // btnRemoveLayer
             // 
-            this.btnRemoveLayer.Location = new System.Drawing.Point(663, 12);
+            this.btnRemoveLayer.Location = new System.Drawing.Point(582, 12);
             this.btnRemoveLayer.Name = "btnRemoveLayer";
             this.btnRemoveLayer.Size = new System.Drawing.Size(96, 23);
             this.btnRemoveLayer.TabIndex = 6;
@@ -119,7 +119,7 @@
             // 
             // btnEditLayer
             // 
-            this.btnEditLayer.Location = new System.Drawing.Point(582, 13);
+            this.btnEditLayer.Location = new System.Drawing.Point(684, 12);
             this.btnEditLayer.Name = "btnEditLayer";
             this.btnEditLayer.Size = new System.Drawing.Size(75, 23);
             this.btnEditLayer.TabIndex = 8;

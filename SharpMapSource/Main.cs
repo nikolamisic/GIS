@@ -60,7 +60,10 @@ namespace SharpMapSource
 
         public void RefreshMap()
         {
-            pbxMapa.Image = _sharpMap.GetMap();
+            if (_sharpMap.Layers.Count != 0)
+                pbxMapa.Image = _sharpMap.GetMap();
+            else
+                pbxMapa.Image = null;
         }
 
         private void btnZoomIn_Click(object sender, EventArgs e)
@@ -77,7 +80,8 @@ namespace SharpMapSource
 
         private void btnZoomFull_Click(object sender, EventArgs e)
         {
-            _sharpMap.ZoomToExtents();
+            if(_sharpMap.Layers.Count != 0)
+                _sharpMap.ZoomToExtents();
             RefreshMap();
         }
 
@@ -128,10 +132,14 @@ namespace SharpMapSource
 
         private void btnRemoveLayer_Click(object sender, EventArgs e)
         {
-            if (this.lbxLayers.SelectedIndex != 0)
+            if (this.lbxLayers.SelectedIndex >= 0)
             {
                 _sharpMap.Layers.RemoveAt(lbxLayers.SelectedIndex);
                 lbxLayers.Items.RemoveAt(lbxLayers.SelectedIndex);
+                if (_sharpMap.Layers.Count != 0)
+                {
+                    _sharpMap.ZoomToExtents();
+                }
                 RefreshMap();
             }
                 
