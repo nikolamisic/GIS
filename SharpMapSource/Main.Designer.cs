@@ -67,9 +67,6 @@
             // 
             // pbxMapa
             // 
-            this.pbxMapa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbxMapa.Location = new System.Drawing.Point(12, 41);
             this.pbxMapa.Name = "pbxMapa";
             this.pbxMapa.Size = new System.Drawing.Size(747, 301);
