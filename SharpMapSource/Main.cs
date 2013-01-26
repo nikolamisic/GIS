@@ -18,10 +18,12 @@ namespace SharpMapSource
         private const float ZOOM_FACTOR = 0.3f;
         private String DATA_NAME = "World Countries";
         private String DATA_PATH = "Data//world_adm0.shp";
+        SharpMap.Geometries.LinearRing select;
 
         public Main()
         {
             InitializeComponent();
+            select = new SharpMap.Geometries.LinearRing();
             _sharpMap = new SharpMap.Map(this.pbxMapa.Size);
             _sharpMap.BackColor = Color.WhiteSmoke;
 
@@ -91,8 +93,10 @@ namespace SharpMapSource
         {
             if (e is MouseEventArgs)
             {
-                MouseEventArgs m = e as MouseEventArgs;
+                if (Control.ModifierKeys != Keys.Control)
+                    this.select.Vertices.Clear();
 
+                MouseEventArgs m = e as MouseEventArgs;
                 if (Control.ModifierKeys == Keys.Shift)
                 {
                     var pp = _sharpMap.ImageToWorld(m.Location);
@@ -104,18 +108,61 @@ namespace SharpMapSource
                         if (queryLayer != null)
                         {
                             queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom/1000), ds);
-                            foreach(SharpMap.Data.FeatureDataRow dr in ds.Tables[0])
+                            foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
                             {
-                                foreach (object o in dr.ItemArray)
+                                foreach (SharpMap.Data.FeatureDataRow dr in tab)
                                 {
-                                    str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                    foreach (object o in dr.ItemArray)
+                                    {
+                                        str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                    }
+                                    str += "\n";
                                 }
-                                str += "\n";
                             }
-                            
                         }
                     }
                     MessageBox.Show(str);
+                    /*SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer(new System.Random().ToString(), new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+                    lay.Style.Fill = Brushes.Yellow;
+                    _sharpMap.Layers.Add(lay);
+
+                    this.RefreshMap();*/
+                }
+                else if(Control.ModifierKeys == Keys.Control)
+                {
+                    SharpMap.Geometries.Point point = new SharpMap.Geometries.Point(m.X,m.Y);
+                    select.Vertices.Add(point);
+                    if (m.Button == System.Windows.Forms.MouseButtons.Right)
+                    {
+                        var pp = _sharpMap.ImageToWorld(m.Location);
+                        SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
+                        String str = "";
+                        foreach (var layer in _sharpMap.Layers)
+                        {
+                            var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                            if (queryLayer != null)
+                            {
+                                SharpMap.Geometries.Polygon poly = new SharpMap.Geometries.Polygon(select);
+                                queryLayer.ExecuteIntersectionQuery(select, ds);
+                                foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
+                                {
+                                    foreach (SharpMap.Data.FeatureDataRow dr in tab)
+                                    {
+                                        foreach (object o in dr.ItemArray)
+                                        {
+                                            str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                        }
+                                        str += "\n";
+                                    }
+                                }
+
+                            }
+                        }
+                        foreach (SharpMap.Geometries.Point niz in select.Vertices)
+                            str += niz.ToString();
+                        MessageBox.Show(str);
+                        select.Vertices.Clear();
+                    }
                 }
                 else
                 {
