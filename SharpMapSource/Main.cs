@@ -97,25 +97,25 @@ namespace SharpMapSource
                 {
                     var pp = _sharpMap.ImageToWorld(m.Location);
                     SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
-
+                    String str = "";
                     foreach (var layer in _sharpMap.Layers)
                     {
                         var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
                         if (queryLayer != null)
                         {
-                            queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom/100), ds);
-                            String str = "";
+                            queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom/1000), ds);
                             foreach(SharpMap.Data.FeatureDataRow dr in ds.Tables[0])
                             {
                                 foreach (object o in dr.ItemArray)
                                 {
-                                    str += o.ToString() + " ";
+                                    str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
                                 }
                                 str += "\n";
                             }
-                            MessageBox.Show(str);
+                            
                         }
                     }
+                    MessageBox.Show(str);
                 }
                 else
                 {
