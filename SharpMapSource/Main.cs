@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OSGeo.GDAL;
+using SharpMap;
 
 namespace SharpMapSource
 {
@@ -91,12 +92,37 @@ namespace SharpMapSource
             if (e is MouseEventArgs)
             {
                 MouseEventArgs m = e as MouseEventArgs;
-                //--> Convert mouse click point from image coordinates to world coordinates
-                SharpMap.Geometries.Point p = _sharpMap.ImageToWorld(new PointF(m.X, m.Y));
-                //--> Recenter map
-                _sharpMap.Center.X = p.X;
-                _sharpMap.Center.Y = p.Y;
-                RefreshMap();
+
+                if (Control.ModifierKeys == Keys.Shift)
+                {
+                    var pp = _sharpMap.ImageToWorld(m.Location);
+                    SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
+
+                    foreach (var layer in _sharpMap.Layers)
+                    {
+                        var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                        if (queryLayer != null)
+                        {
+                            queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox(), ds);
+                            String str = "";
+                            foreach(SharpMap.Data.FeatureDataRow dr in ds.Tables[0])
+                            {
+                                foreach (object o in dr.ItemArray)
+                                    str += o.ToString() + " ";
+                            }
+                            MessageBox.Show(str);
+                        }
+                    }
+                }
+                else
+                {
+                    //--> Convert mouse click point from image coordinates to world coordinates
+                    SharpMap.Geometries.Point p = _sharpMap.ImageToWorld(new PointF(m.X, m.Y));
+                    //--> Recenter map
+                    _sharpMap.Center.X = p.X;
+                    _sharpMap.Center.Y = p.Y;
+                    RefreshMap();
+                }
             }
         }
 
@@ -124,6 +150,8 @@ namespace SharpMapSource
             layer.Style.Fill = Brushes.Red;
             layer.Style.EnableOutline = true;
             layer.Style.Outline = Pens.OrangeRed;
+
+            //MessageBox.Show(layer.DataSource.GetFeatureCount().ToString());
 
             try
             {
