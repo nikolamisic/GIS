@@ -103,12 +103,15 @@ namespace SharpMapSource
                         var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
                         if (queryLayer != null)
                         {
-                            queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox(), ds);
+                            queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom/100), ds);
                             String str = "";
                             foreach(SharpMap.Data.FeatureDataRow dr in ds.Tables[0])
                             {
                                 foreach (object o in dr.ItemArray)
+                                {
                                     str += o.ToString() + " ";
+                                }
+                                str += "\n";
                             }
                             MessageBox.Show(str);
                         }
