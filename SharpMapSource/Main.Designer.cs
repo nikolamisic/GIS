@@ -40,25 +40,30 @@
             this.removeLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this._sharpMapImage = new SharpMap.Forms.MapImage();
             this._dataGridLayers = new System.Windows.Forms.DataGridView();
-            this.layerEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.layer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.mainToolBar = new System.Windows.Forms.ToolStrip();
             this.toolZoomIn = new System.Windows.Forms.ToolStripButton();
             this.toolZoomOut = new System.Windows.Forms.ToolStripButton();
             this.toolZoomToExtends = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolEditLayer = new System.Windows.Forms.ToolStripButton();
             this.toolDeleteLayer = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolPan = new System.Windows.Forms.ToolStripButton();
+            this.toolSelection = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblImageCoordinates = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblWorldCoordiantes = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnLayerUp = new System.Windows.Forms.Button();
+            this.btnLayerDown = new System.Windows.Forms.Button();
+            this._sharpMapImage = new SharpMap.Forms.MapImage();
+            this.layerEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.layer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._sharpMapImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridLayers)).BeginInit();
-            this.toolStrip1.SuspendLayout();
+            this.mainToolBar.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._sharpMapImage)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -69,7 +74,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(794, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(853, 24);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -147,28 +152,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // _sharpMapImage
-            // 
-            this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.Pan;
-            this._sharpMapImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._sharpMapImage.BackColor = System.Drawing.Color.White;
-            this._sharpMapImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this._sharpMapImage.FineZoomFactor = 10D;
-            this._sharpMapImage.Location = new System.Drawing.Point(208, 56);
-            this._sharpMapImage.Name = "_sharpMapImage";
-            this._sharpMapImage.PanOnClick = false;
-            this._sharpMapImage.QueryLayerIndex = 0;
-            this._sharpMapImage.Size = new System.Drawing.Size(574, 292);
-            this._sharpMapImage.TabIndex = 11;
-            this._sharpMapImage.TabStop = false;
-            this._sharpMapImage.WheelZoomMagnitude = 2D;
-            this._sharpMapImage.ZoomOnDblClick = false;
-            this._sharpMapImage.MouseMove += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseMove);
-            this._sharpMapImage.MouseDown += new SharpMap.Forms.MapImage.MouseEventHandler(this._sharpMapImage_MouseDown);
-            this._sharpMapImage.MouseUp += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseUp);
-            // 
             // _dataGridLayers
             // 
             this._dataGridLayers.AllowUserToAddRows = false;
@@ -179,48 +162,43 @@
             this._dataGridLayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.layerEnabled,
             this.layer});
-            this._dataGridLayers.Location = new System.Drawing.Point(12, 56);
+            this._dataGridLayers.Location = new System.Drawing.Point(12, 64);
+            this._dataGridLayers.MultiSelect = false;
             this._dataGridLayers.Name = "_dataGridLayers";
             this._dataGridLayers.RowHeadersVisible = false;
             this._dataGridLayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this._dataGridLayers.Size = new System.Drawing.Size(190, 292);
+            this._dataGridLayers.Size = new System.Drawing.Size(190, 293);
             this._dataGridLayers.TabIndex = 12;
             // 
-            // layerEnabled
+            // mainToolBar
             // 
-            this.layerEnabled.HeaderText = "Enabled";
-            this.layerEnabled.Name = "layerEnabled";
-            this.layerEnabled.Width = 50;
-            // 
-            // layer
-            // 
-            this.layer.HeaderText = "Layer";
-            this.layer.Name = "layer";
-            this.layer.ReadOnly = true;
-            this.layer.Width = 135;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainToolBar.AutoSize = false;
+            this.mainToolBar.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.mainToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolZoomIn,
             this.toolZoomOut,
             this.toolZoomToExtends,
             this.toolStripSeparator1,
             this.toolEditLayer,
-            this.toolDeleteLayer});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(794, 25);
-            this.toolStrip1.TabIndex = 13;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolDeleteLayer,
+            this.toolStripSeparator3,
+            this.toolPan,
+            this.toolSelection});
+            this.mainToolBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.mainToolBar.Location = new System.Drawing.Point(0, 24);
+            this.mainToolBar.Name = "mainToolBar";
+            this.mainToolBar.Size = new System.Drawing.Size(853, 32);
+            this.mainToolBar.TabIndex = 13;
+            this.mainToolBar.Text = "Tools";
             // 
             // toolZoomIn
             // 
+            this.toolZoomIn.BackColor = System.Drawing.SystemColors.Control;
             this.toolZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolZoomIn.Image = ((System.Drawing.Image)(resources.GetObject("toolZoomIn.Image")));
             this.toolZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolZoomIn.Name = "toolZoomIn";
-            this.toolZoomIn.Size = new System.Drawing.Size(23, 22);
+            this.toolZoomIn.Size = new System.Drawing.Size(36, 29);
             this.toolZoomIn.Text = "Zoom In";
             this.toolZoomIn.Click += new System.EventHandler(this.toolZoomIn_Click);
             // 
@@ -230,24 +208,26 @@
             this.toolZoomOut.Image = ((System.Drawing.Image)(resources.GetObject("toolZoomOut.Image")));
             this.toolZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolZoomOut.Name = "toolZoomOut";
-            this.toolZoomOut.Size = new System.Drawing.Size(23, 22);
+            this.toolZoomOut.Size = new System.Drawing.Size(36, 29);
             this.toolZoomOut.Text = "Zoom Out";
             this.toolZoomOut.Click += new System.EventHandler(this.toolZoomOut_Click);
             // 
             // toolZoomToExtends
             // 
+            this.toolZoomToExtends.AutoSize = false;
+            this.toolZoomToExtends.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.toolZoomToExtends.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolZoomToExtends.Image = ((System.Drawing.Image)(resources.GetObject("toolZoomToExtends.Image")));
+            this.toolZoomToExtends.Image = global::SharpMapSource.Properties.Resources._1359423542_xmag;
             this.toolZoomToExtends.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolZoomToExtends.Name = "toolZoomToExtends";
-            this.toolZoomToExtends.Size = new System.Drawing.Size(23, 22);
+            this.toolZoomToExtends.Size = new System.Drawing.Size(32, 32);
             this.toolZoomToExtends.Text = "Zoom To Extends";
             this.toolZoomToExtends.Click += new System.EventHandler(this.toolZoomToExtends_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
             // 
             // toolEditLayer
             // 
@@ -255,28 +235,52 @@
             this.toolEditLayer.Image = ((System.Drawing.Image)(resources.GetObject("toolEditLayer.Image")));
             this.toolEditLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolEditLayer.Name = "toolEditLayer";
-            this.toolEditLayer.Size = new System.Drawing.Size(23, 22);
+            this.toolEditLayer.Size = new System.Drawing.Size(36, 29);
             this.toolEditLayer.Text = "Edit Layer";
             this.toolEditLayer.Click += new System.EventHandler(this.toolEditLayer_Click);
             // 
             // toolDeleteLayer
             // 
             this.toolDeleteLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolDeleteLayer.Image = ((System.Drawing.Image)(resources.GetObject("toolDeleteLayer.Image")));
+            this.toolDeleteLayer.Image = global::SharpMapSource.Properties.Resources.remove;
             this.toolDeleteLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolDeleteLayer.Name = "toolDeleteLayer";
-            this.toolDeleteLayer.Size = new System.Drawing.Size(23, 22);
+            this.toolDeleteLayer.Size = new System.Drawing.Size(36, 29);
             this.toolDeleteLayer.Text = "Remove Layer";
             this.toolDeleteLayer.Click += new System.EventHandler(this.toolDeleteLayer_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 32);
+            // 
+            // toolPan
+            // 
+            this.toolPan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolPan.Image = ((System.Drawing.Image)(resources.GetObject("toolPan.Image")));
+            this.toolPan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolPan.Name = "toolPan";
+            this.toolPan.Size = new System.Drawing.Size(36, 29);
+            this.toolPan.Text = "toolStripButton1";
+            this.toolPan.ToolTipText = "Pan";
+            // 
+            // toolSelection
+            // 
+            this.toolSelection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolSelection.Image = ((System.Drawing.Image)(resources.GetObject("toolSelection.Image")));
+            this.toolSelection.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolSelection.Name = "toolSelection";
+            this.toolSelection.Size = new System.Drawing.Size(36, 29);
+            this.toolSelection.Text = "Select Objects";
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblImageCoordinates,
             this.lblWorldCoordiantes});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 351);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 414);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(794, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(853, 22);
             this.statusStrip1.TabIndex = 15;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -292,13 +296,75 @@
             this.lblWorldCoordiantes.Size = new System.Drawing.Size(104, 17);
             this.lblWorldCoordiantes.Text = "worldCoordiantes:";
             // 
+            // btnLayerUp
+            // 
+            this.btnLayerUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLayerUp.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLayerUp.BackgroundImage")));
+            this.btnLayerUp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLayerUp.Location = new System.Drawing.Point(66, 363);
+            this.btnLayerUp.Name = "btnLayerUp";
+            this.btnLayerUp.Size = new System.Drawing.Size(48, 48);
+            this.btnLayerUp.TabIndex = 17;
+            this.btnLayerUp.UseVisualStyleBackColor = true;
+            this.btnLayerUp.Click += new System.EventHandler(this.btnLayerUp_Click);
+            // 
+            // btnLayerDown
+            // 
+            this.btnLayerDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLayerDown.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLayerDown.BackgroundImage")));
+            this.btnLayerDown.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLayerDown.Location = new System.Drawing.Point(12, 362);
+            this.btnLayerDown.Name = "btnLayerDown";
+            this.btnLayerDown.Size = new System.Drawing.Size(48, 48);
+            this.btnLayerDown.TabIndex = 16;
+            this.btnLayerDown.UseVisualStyleBackColor = true;
+            this.btnLayerDown.Click += new System.EventHandler(this.btnLayerDown_Click);
+            // 
+            // _sharpMapImage
+            // 
+            this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.Pan;
+            this._sharpMapImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._sharpMapImage.BackColor = System.Drawing.Color.White;
+            this._sharpMapImage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this._sharpMapImage.FineZoomFactor = 10D;
+            this._sharpMapImage.Location = new System.Drawing.Point(208, 64);
+            this._sharpMapImage.Name = "_sharpMapImage";
+            this._sharpMapImage.PanOnClick = false;
+            this._sharpMapImage.QueryLayerIndex = 0;
+            this._sharpMapImage.Size = new System.Drawing.Size(633, 347);
+            this._sharpMapImage.TabIndex = 11;
+            this._sharpMapImage.TabStop = false;
+            this._sharpMapImage.WheelZoomMagnitude = 2D;
+            this._sharpMapImage.ZoomOnDblClick = false;
+            this._sharpMapImage.MouseMove += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseMove);
+            this._sharpMapImage.MouseDown += new SharpMap.Forms.MapImage.MouseEventHandler(this._sharpMapImage_MouseDown);
+            this._sharpMapImage.MouseUp += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseUp);
+            // 
+            // layerEnabled
+            // 
+            this.layerEnabled.HeaderText = "Enabled";
+            this.layerEnabled.Name = "layerEnabled";
+            this.layerEnabled.Width = 50;
+            // 
+            // layer
+            // 
+            this.layer.HeaderText = "Layer";
+            this.layer.Name = "layer";
+            this.layer.ReadOnly = true;
+            this.layer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.layer.Width = 135;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 373);
+            this.ClientSize = new System.Drawing.Size(853, 436);
+            this.Controls.Add(this.btnLayerUp);
+            this.Controls.Add(this.btnLayerDown);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.mainToolBar);
             this.Controls.Add(this._dataGridLayers);
             this.Controls.Add(this._sharpMapImage);
             this.Controls.Add(this.menuStrip1);
@@ -309,12 +375,12 @@
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._sharpMapImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridLayers)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.mainToolBar.ResumeLayout(false);
+            this.mainToolBar.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._sharpMapImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,7 +399,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private SharpMap.Forms.MapImage _sharpMapImage;
         private System.Windows.Forms.DataGridView _dataGridLayers;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip mainToolBar;
         private System.Windows.Forms.ToolStripButton toolZoomIn;
         private System.Windows.Forms.ToolStripButton toolZoomOut;
         private System.Windows.Forms.ToolStripButton toolZoomToExtends;
@@ -343,10 +409,15 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblImageCoordinates;
         private System.Windows.Forms.ToolStripStatusLabel lblWorldCoordiantes;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn layerEnabled;
-        private System.Windows.Forms.DataGridViewTextBoxColumn layer;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem removeLayerToolStripMenuItem;
+        private System.Windows.Forms.Button btnLayerDown;
+        private System.Windows.Forms.Button btnLayerUp;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton toolPan;
+        private System.Windows.Forms.ToolStripButton toolSelection;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn layerEnabled;
+        private System.Windows.Forms.DataGridViewTextBoxColumn layer;
     }
 }
 

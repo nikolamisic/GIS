@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OSGeo.GDAL;
+using SharpMap.Layers;
 using SharpMapSource.Layers;
 
 namespace SharpMapSource
@@ -37,10 +38,17 @@ namespace SharpMapSource
 
         public void RefreshMap()
         {
-            if (_sharpMap.Layers.Count != 0)
-                this._sharpMapImage.Image = _sharpMap.GetMap();
-            else
+            if (this._sharpMap.Size.Width == 0 || this._sharpMap.Size.Height == 0)
+            {
                 this._sharpMapImage.Image = null;
+            }
+            else
+            {
+                if (_sharpMap.Layers.Count != 0)
+                    this._sharpMapImage.Image = _sharpMap.GetMap();
+                else
+                    this._sharpMapImage.Image = null;
+            }
         }
 
         private void btnRemoveLayer_Click(object sender, EventArgs e)
@@ -192,6 +200,61 @@ namespace SharpMapSource
             if(ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 this._panCoordinate = ImagePos.Location;
+            }
+        }
+
+        public void SortLayers()
+        {
+            LayerCollection collection = new LayerCollection();
+            foreach (ILayer layer in this._sharpMap.Layers)
+            {
+                collection.Add(layer);
+            }
+            this._sharpMap.Layers.Clear();
+            foreach(DataGridViewRow row in this._dataGridLayers.Rows)
+            {
+                string layerGridName = (string)row.Cells[1].Value;
+                foreach (ILayer layer in collection)
+                {
+                    if (string.Equals(layerGridName, layer.LayerName))
+                    {
+                        this._sharpMap.Layers.Add(layer);
+                        break;
+                    }
+                }
+            }
+            this.RefreshMap();
+        }
+
+        private void btnLayerDown_Click(object sender, EventArgs e)
+        {
+            if (this._dataGridLayers.SelectedRows.Count > 0)
+            {
+                int selectedRow = this._dataGridLayers.SelectedRows[0].Index;
+                if (selectedRow < this._dataGridLayers.Rows.Count - 1)
+                {
+                    DataGridViewRow row = this._dataGridLayers.Rows[selectedRow];
+                    this._dataGridLayers.Rows.Remove(row);
+                    this._dataGridLayers.Rows.Insert(selectedRow + 1, row);
+                    this._dataGridLayers.Rows[selectedRow + 1].Selected = true;
+                    this.SortLayers();
+                }
+            }
+        }
+
+        private void btnLayerUp_Click(object sender, EventArgs e)
+        {
+            if (this._dataGridLayers.SelectedRows.Count > 0)
+            { 
+                int selectedIndex = this._dataGridLayers.SelectedRows[0].Index;
+                if (selectedIndex > 0)
+                {
+                    DataGridViewRow row = this._dataGridLayers.Rows[selectedIndex];
+                    this._dataGridLayers.Rows.Remove(row);
+                    this._dataGridLayers.Rows.Insert( selectedIndex - 1,row);
+                    this._dataGridLayers.Rows[selectedIndex - 1].Selected = true;
+                    this.SortLayers();
+                }
             }
         }
     }

@@ -115,17 +115,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -148,6 +149,36 @@
       <Project>{c83777fc-aabb-47d9-911f-d76255d4d541}</Project>
       <Name>SharpMap.VS2010</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\down-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\up-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\zoom_extents_icon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Zoom-In-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Zoom-Out-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\edit-notes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\1359423542_xmag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\1359424167_hand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\1359424169_12.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
