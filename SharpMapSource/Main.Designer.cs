@@ -36,10 +36,14 @@
             this.menyAddVectorLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddRasterLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddLabelLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.removeLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._sharpMapImage = new SharpMap.Forms.MapImage();
             this._dataGridLayers = new System.Windows.Forms.DataGridView();
+            this.layerEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.layer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolZoomIn = new System.Windows.Forms.ToolStripButton();
             this.toolZoomOut = new System.Windows.Forms.ToolStripButton();
@@ -50,10 +54,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblImageCoordinates = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblWorldCoordiantes = new System.Windows.Forms.ToolStripStatusLabel();
-            this.layerEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.layer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.removeLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._sharpMapImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridLayers)).BeginInit();
@@ -121,6 +121,17 @@
             this.menuAddLabelLayer.Text = "Add Label Layer";
             this.menuAddLabelLayer.Click += new System.EventHandler(this.menuAddLabelLayer_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(161, 6);
+            // 
+            // removeLayerToolStripMenuItem
+            // 
+            this.removeLayerToolStripMenuItem.Name = "removeLayerToolStripMenuItem";
+            this.removeLayerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.removeLayerToolStripMenuItem.Text = "Remove Layer";
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -174,6 +185,19 @@
             this._dataGridLayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._dataGridLayers.Size = new System.Drawing.Size(190, 292);
             this._dataGridLayers.TabIndex = 12;
+            // 
+            // layerEnabled
+            // 
+            this.layerEnabled.HeaderText = "Enabled";
+            this.layerEnabled.Name = "layerEnabled";
+            this.layerEnabled.Width = 50;
+            // 
+            // layer
+            // 
+            this.layer.HeaderText = "Layer";
+            this.layer.Name = "layer";
+            this.layer.ReadOnly = true;
+            this.layer.Width = 135;
             // 
             // toolStrip1
             // 
@@ -267,30 +291,6 @@
             this.lblWorldCoordiantes.Name = "lblWorldCoordiantes";
             this.lblWorldCoordiantes.Size = new System.Drawing.Size(104, 17);
             this.lblWorldCoordiantes.Text = "worldCoordiantes:";
-            // 
-            // layerEnabled
-            // 
-            this.layerEnabled.HeaderText = "Enabled";
-            this.layerEnabled.Name = "layerEnabled";
-            this.layerEnabled.Width = 50;
-            // 
-            // layer
-            // 
-            this.layer.HeaderText = "Layer";
-            this.layer.Name = "layer";
-            this.layer.ReadOnly = true;
-            this.layer.Width = 135;
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(161, 6);
-            // 
-            // removeLayerToolStripMenuItem
-            // 
-            this.removeLayerToolStripMenuItem.Name = "removeLayerToolStripMenuItem";
-            this.removeLayerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.removeLayerToolStripMenuItem.Text = "Remove Layer";
             // 
             // Main
             // 
