@@ -98,6 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Layers\LayerManager.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
