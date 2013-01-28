@@ -99,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Layers\LayerManager.cs" />
+    <Compile Include="Layers\main2.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
