@@ -16,6 +16,8 @@ using SharpMap.Data.Providers;
 
 namespace SharpMapSource
 {
+    
+
     public partial class Main : Form
     {
         private SharpMap.Map _sharpMap;
@@ -28,7 +30,6 @@ namespace SharpMapSource
         //private String DATA_PATH = "Data//world_adm0.shp";
         //pan image
         private Point _panCoordinate;
-
 
         public Main()
         {
@@ -401,6 +402,7 @@ namespace SharpMapSource
             AddPostGisLayer layerDialog = new AddPostGisLayer();
             layerDialog.StartPosition = FormStartPosition.CenterParent;
             //layerDialog.Parent = this;
+            layerDialog.addedPostGisLayer += new AddedPostGisLayer(this.AddedNewPostGisLayer);
             layerDialog.ShowDialog();
         }
 
@@ -408,6 +410,22 @@ namespace SharpMapSource
         {
             if (poligon.Count > 1)
                 e.Graphics.DrawPolygon(Pens.Red, poligon.ToArray());
+        }
+
+        private void AddedNewPostGisLayer(object sender, PostGisEventArgs e)
+        {
+            this._manager.AddVectorLayer(e.LayerName, e.PostGis);
+            this._dataGridLayers.Rows.Add(true, e.LayerName);
+            //MessageBox.Show(e.LayerName);
+            try
+            {
+                _sharpMap.ZoomToExtents();
+                RefreshMap();
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show("Layer already inserted");
+            }
         }
     }
 }

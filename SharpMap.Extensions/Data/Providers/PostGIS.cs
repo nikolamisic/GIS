@@ -194,9 +194,9 @@ namespace SharpMap.Data.Providers
                                  bbox.Max.X.ToString(Map.NumberFormatEnUs) + " " +
                                  bbox.Max.Y.ToString(Map.NumberFormatEnUs) + ")'::box3d)";
                 if (SRID > 0)
-                    strBbox = "setSRID(" + strBbox + "," + SRID.ToString(Map.NumberFormatEnUs) + ")";
+                    strBbox = "ST_setSRID(" + strBbox + "," + SRID.ToString(Map.NumberFormatEnUs) + ")";
 
-                string strSQL = "SELECT AsBinary(\"" + GeometryColumn + "\") AS Geom ";
+                string strSQL = "SELECT ST_AsBinary(\"" + GeometryColumn + "\") AS Geom ";
                 strSQL += "FROM " + QualifiedTable + " WHERE ";
 
                 if (!String.IsNullOrEmpty(_defintionQuery))
@@ -238,7 +238,7 @@ namespace SharpMap.Data.Providers
             Geometry geom = null;
             using (NpgsqlConnection conn = new NpgsqlConnection(_ConnectionString))
             {
-                string strSQL = "SELECT AsBinary(\"" + GeometryColumn + "\") AS Geom FROM " + QualifiedTable +
+                string strSQL = "SELECT ST_AsBinary(\"" + GeometryColumn + "\") AS Geom FROM " + QualifiedTable +
                                 " WHERE \"" + ObjectIdColumn + "\"='" + oid + "'";
 #if DEBUG
                 Debug.WriteLine(string.Format("{0}\n{1}", "GetGeometryByID: executing sql:", strSQL));
@@ -276,7 +276,7 @@ namespace SharpMap.Data.Providers
                                  bbox.Max.X.ToString(Map.NumberFormatEnUs) + " " +
                                  bbox.Max.Y.ToString(Map.NumberFormatEnUs) + ")'::box3d)";
                 if (SRID > 0)
-                    strBbox = "setSRID(" + strBbox + "," + SRID.ToString(Map.NumberFormatEnUs) + ")";
+                    strBbox = "ST_setSRID(" + strBbox + "," + SRID.ToString(Map.NumberFormatEnUs) + ")";
 
                 string strSQL = "SELECT \"" + ObjectIdColumn + "\" ";
                 strSQL += "FROM " + QualifiedTable + " WHERE ";
@@ -321,9 +321,9 @@ namespace SharpMap.Data.Providers
             {
                 string strGeom = "GeomFromText('" + geom.AsText() + "')";
                 if (SRID > 0)
-                    strGeom = "setSRID(" + strGeom + "," + SRID + ")";
+                    strGeom = "ST_setSRID(" + strGeom + "," + SRID + ")";
 
-                string strSQL = "SELECT * , AsBinary(\"" + GeometryColumn + "\") As sharpmap_tempgeometry FROM " +
+                string strSQL = "SELECT * , ST_AsBinary(\"" + GeometryColumn + "\") As sharpmap_tempgeometry FROM " +
                                 QualifiedTable + " WHERE ";
 
                 if (!String.IsNullOrEmpty(_defintionQuery))
@@ -428,7 +428,7 @@ namespace SharpMap.Data.Providers
         {
             using (NpgsqlConnection conn = new NpgsqlConnection(_ConnectionString))
             {
-                string strSQL = "select * , AsBinary(\"" + GeometryColumn + "\") As sharpmap_tempgeometry from " +
+                string strSQL = "select * , ST_AsBinary(\"" + GeometryColumn + "\") As sharpmap_tempgeometry from " +
                                 QualifiedTable + " WHERE \"" + ObjectIdColumn + "\"='" + RowID + "'";
                 using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(strSQL, conn))
                 {
@@ -469,7 +469,7 @@ namespace SharpMap.Data.Providers
         {
             using (NpgsqlConnection conn = new NpgsqlConnection(_ConnectionString))
             {
-                string strSQL = "SELECT EXTENT(\"" + GeometryColumn + "\") FROM " + QualifiedTable;
+                string strSQL = "SELECT ST_EXTENT(\"" + GeometryColumn + "\") FROM " + QualifiedTable;
                 if (!String.IsNullOrEmpty(_defintionQuery))
                     strSQL += " WHERE " + DefinitionQuery;
                 using (NpgsqlCommand command = new NpgsqlCommand(strSQL, conn))
@@ -519,9 +519,9 @@ namespace SharpMap.Data.Providers
                                  bbox.Max.X.ToString(Map.NumberFormatEnUs) + " " +
                                  bbox.Max.Y.ToString(Map.NumberFormatEnUs) + ")'::box3d)";
                 if (SRID > 0)
-                    strBbox = "setSRID(" + strBbox + "," + SRID.ToString(Map.NumberFormatEnUs) + ")";
+                    strBbox = "ST_setSRID(" + strBbox + "," + SRID.ToString(Map.NumberFormatEnUs) + ")";
 
-                string strSQL = "SELECT *, AsBinary(\"" + GeometryColumn + "\") AS sharpmap_tempgeometry ";
+                string strSQL = "SELECT *, ST_AsBinary(\"" + GeometryColumn + "\") AS sharpmap_tempgeometry ";
                 strSQL += "FROM " + QualifiedTable + " WHERE ";
 
                 if (!String.IsNullOrEmpty(_defintionQuery))
@@ -626,9 +626,9 @@ namespace SharpMap.Data.Providers
             {
                 string strGeom = "GeomFromText('" + geom.AsText() + "')";
                 if (SRID > 0)
-                    strGeom = "setSRID(" + strGeom + "," + SRID + ")";
+                    strGeom = "ST_setSRID(" + strGeom + "," + SRID + ")";
 
-                string strSQL = "SELECT * , AsBinary(\"" + GeometryColumn + "\") As sharpmap_tempgeometry FROM " +
+                string strSQL = "SELECT * , ST_AsBinary(\"" + GeometryColumn + "\") As sharpmap_tempgeometry FROM " +
                                 QualifiedTable + " WHERE ";
 
                 if (!String.IsNullOrEmpty(_defintionQuery))

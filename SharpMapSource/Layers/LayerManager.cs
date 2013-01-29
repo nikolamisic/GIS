@@ -22,6 +22,7 @@ namespace SharpMapSource.Layers
         {
             this.map = map;
         }
+
         public void AddVectorLayer(string name, IProvider provider)
         {
             VectorLayer layer = new VectorLayer(name);
@@ -38,6 +39,7 @@ namespace SharpMapSource.Layers
                 MessageBox.Show(e.StackTrace);
             }
         }
+
         public void AddLabellayer(string name, string columnName, IProvider dataProvider)
         { 
             LabelLayer labelLayer = new LabelLayer(name);
@@ -49,6 +51,7 @@ namespace SharpMapSource.Layers
             labelLayer.MultipartGeometryBehaviour = SharpMap.Layers.LabelLayer.MultipartGeometryBehaviourEnum.Largest;
             labelLayer.Style.Font = new Font(FontFamily.GenericSansSerif, 8);
         }
+
         public void AddRasterLayer(string path)
         {
             string fileName = Path.GetFileNameWithoutExtension(path);
@@ -57,9 +60,17 @@ namespace SharpMapSource.Layers
             this.map.Layers.Add(rasterLayer);
             this.map.ZoomToExtents();
         }
+
+        //public void AddPostGisLayer(string LayerName, IProvider provider)
+        //{
+        //    VectorLayer layer = new VectorLayer(LayerName);
+        //    layer.DataSource = provider;
+        //    layer
+        //}
+
         public void RemoveLayer(ILayer layer)
         {
- 
+
         }
     }
 }

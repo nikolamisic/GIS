@@ -162,7 +162,7 @@ namespace SharpMap.Data.Providers
             {
                 string strBbox = GetBoundingBoxSql(bbox, SRID);
 
-                String strSql = String.Format("SELECT AsBinary({0}) as geom FROM {1} WHERE ",
+                String strSql = String.Format("SELECT ST_AsBinary({0}) as geom FROM {1} WHERE ",
                                               GeometryColumn,
                                               Table);
 
@@ -208,7 +208,7 @@ namespace SharpMap.Data.Providers
             Geometry geom = null;
             using (PgConnection conn = new PgConnection(_ConnectionString))
             {
-                String strSql = String.Format("SELECT AsBinary({0}) As Geom FROM {1} WHERE {2} = '{3}'",
+                String strSql = String.Format("SELECT ST_AsBinary({0}) As Geom FROM {1} WHERE {2} = '{3}'",
                                               GeometryColumn,
                                               Table,
                                               ObjectIdColumn,
@@ -285,9 +285,9 @@ namespace SharpMap.Data.Providers
             {
                 string strGeom = "GeomFromText('" + geom.AsText() + "')";
                 if (SRID > 0)
-                    strGeom = "setSRID(" + strGeom + "," + SRID.ToString() + ")";
+                    strGeom = "ST_setSRID(" + strGeom + "," + SRID.ToString() + ")";
 
-                string strSQL = "SELECT * , AsBinary(" + GeometryColumn + ") As sharpmap_tempgeometry FROM " + Table +
+                string strSQL = "SELECT * , ST_AsBinary(" + GeometryColumn + ") As sharpmap_tempgeometry FROM " + Table +
                                 " WHERE ";
 
                 if (!String.IsNullOrEmpty(_defintionQuery))
@@ -390,7 +390,7 @@ namespace SharpMap.Data.Providers
             using (PgConnection conn = new PgConnection(_ConnectionString))
             {
                 string strSQL =
-                    String.Format("select * , AsBinary({0}) As sharpmap_tempgeometry from {1} WHERE {2} = '{3}'",
+                    String.Format("select * , ST_AsBinary({0}) As sharpmap_tempgeometry from {1} WHERE {2} = '{3}'",
                                   GeometryColumn, Table, ObjectIdColumn, RowID);
 
                 using (PgDataAdapter adapter = new PgDataAdapter(strSQL, conn))
@@ -432,7 +432,7 @@ namespace SharpMap.Data.Providers
         {
             using (PgConnection conn = new PgConnection(_ConnectionString))
             {
-                string strSQL = String.Format("SELECT EXTENT({0}) FROM {1}",
+                string strSQL = String.Format("SELECT ST_EXTENT({0}) FROM {1}",
                                               GeometryColumn,
                                               Table);
 
@@ -486,7 +486,7 @@ namespace SharpMap.Data.Providers
             {
                 string strBbox = GetBoundingBoxSql(bbox, SRID);
 
-                string strSQL = String.Format("SELECT *, AsBinary({0}) AS sharpmap_tempgeometry FROM {1} WHERE ",
+                string strSQL = String.Format("SELECT *, ST_AsBinary({0}) AS sharpmap_tempgeometry FROM {1} WHERE ",
                                               GeometryColumn,
                                               Table);
 
@@ -541,7 +541,7 @@ namespace SharpMap.Data.Providers
                                            bbox.Max.Y.ToString(Map.NumberFormatEnUs));
 
             if (iSRID > 0)
-                strBbox = String.Format(Map.NumberFormatEnUs, "SetSRID({0},{1})", strBbox, iSRID);
+                strBbox = String.Format(Map.NumberFormatEnUs, "ST_SetSRID({0},{1})", strBbox, iSRID);
 
             return strBbox;
         }
@@ -597,9 +597,9 @@ namespace SharpMap.Data.Providers
             {
                 string strGeom = "GeomFromText('" + geom.AsText() + "')";
                 if (SRID > 0)
-                    strGeom = "setSRID(" + strGeom + "," + SRID.ToString() + ")";
+                    strGeom = "ST_setSRID(" + strGeom + "," + SRID.ToString() + ")";
 
-                string strSQL = "SELECT * , AsBinary(" + GeometryColumn + ") As sharpmap_tempgeometry FROM " + Table +
+                string strSQL = "SELECT * , ST_AsBinary(" + GeometryColumn + ") As sharpmap_tempgeometry FROM " + Table +
                                 " WHERE ";
 
                 if (!String.IsNullOrEmpty(_defintionQuery))

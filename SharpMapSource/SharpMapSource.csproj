@@ -108,6 +108,7 @@
     <Compile Include="Layers\main2.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Layers\PostGisEventArgs.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
