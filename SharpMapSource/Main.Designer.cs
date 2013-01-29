@@ -36,6 +36,7 @@
             this.menyAddVectorLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddRasterLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddLabelLayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPostGisVectorLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.removeLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +60,6 @@
             this.btnLayerUp = new System.Windows.Forms.Button();
             this.btnLayerDown = new System.Windows.Forms.Button();
             this._sharpMapImage = new SharpMap.Forms.MapImage();
-            this.addPostGisVectorLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridLayers)).BeginInit();
             this.mainToolBar.SuspendLayout();
@@ -127,6 +127,13 @@
             this.menuAddLabelLayer.Size = new System.Drawing.Size(209, 22);
             this.menuAddLabelLayer.Text = "Add Label Layer";
             this.menuAddLabelLayer.Click += new System.EventHandler(this.menuAddLabelLayer_Click);
+            // 
+            // addPostGisVectorLayerToolStripMenuItem
+            // 
+            this.addPostGisVectorLayerToolStripMenuItem.Name = "addPostGisVectorLayerToolStripMenuItem";
+            this.addPostGisVectorLayerToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.addPostGisVectorLayerToolStripMenuItem.Text = "Add Post Gis Vector Layer";
+            this.addPostGisVectorLayerToolStripMenuItem.Click += new System.EventHandler(this.addPostGisVectorLayerToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -357,13 +364,7 @@
             this._sharpMapImage.MouseMove += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseMove);
             this._sharpMapImage.MouseDown += new SharpMap.Forms.MapImage.MouseEventHandler(this._sharpMapImage_MouseDown);
             this._sharpMapImage.MouseUp += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseUp);
-            // 
-            // addPostGisVectorLayerToolStripMenuItem
-            // 
-            this.addPostGisVectorLayerToolStripMenuItem.Name = "addPostGisVectorLayerToolStripMenuItem";
-            this.addPostGisVectorLayerToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.addPostGisVectorLayerToolStripMenuItem.Text = "Add Post Gis Vector Layer";
-            this.addPostGisVectorLayerToolStripMenuItem.Click += new System.EventHandler(this.addPostGisVectorLayerToolStripMenuItem_Click);
+            this._sharpMapImage.Paint += new System.Windows.Forms.PaintEventHandler(this._sharpMapImage_Paint);
             // 
             // Main
             // 

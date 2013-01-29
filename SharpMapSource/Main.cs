@@ -21,6 +21,7 @@ namespace SharpMapSource
         private SharpMap.Map _sharpMap;
         private LayerManager _manager;
         private SharpMap.Geometries.LinearRing select;
+        private IList<Point> poligon;
 
         private const float ZOOM_FACTOR = 0.3f;
         //private String DATA_NAME = "World Countries";
@@ -36,6 +37,7 @@ namespace SharpMapSource
             _sharpMap.BackColor = Color.White;
             this._manager = new LayerManager(this._sharpMap);
             this.select = new SharpMap.Geometries.LinearRing();
+            this.poligon = new List<Point>();
 
             RefreshMap();
         }
@@ -206,8 +208,11 @@ namespace SharpMapSource
 
         private void _sharpMapImage_MouseDown(SharpMap.Geometries.Point WorldPos, MouseEventArgs ImagePos)
         {
-                if (Control.ModifierKeys != Keys.Shift)
-                    this.select.Vertices.Clear();
+            if (Control.ModifierKeys != Keys.Shift)
+            {
+                this.select.Vertices.Clear();
+                this.poligon.Clear();
+            }
 
                 if (Control.ModifierKeys == Keys.Control)
                 {
@@ -260,8 +265,11 @@ namespace SharpMapSource
                 {
                     SharpMap.Geometries.Point point = new SharpMap.Geometries.Point(ImagePos.X, ImagePos.Y);
                     select.Vertices.Add(point);
+                    poligon.Add(new Point(ImagePos.X,ImagePos.Y));
+                    //Graphics olovka = this.CreateGraphics();
                     if (ImagePos.Button == System.Windows.Forms.MouseButtons.Right)
                     {
+                        this._sharpMapImage.Refresh();
                         var pp = _sharpMap.ImageToWorld(ImagePos.Location);
                         SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
                         String str = "";
@@ -271,6 +279,7 @@ namespace SharpMapSource
                            // if (queryLayer != null)
                            // {
                                 select.Vertices.Add(select.Vertices[0]);
+                            poligon.Add(poligon[0]);
                                 SharpMap.Geometries.Polygon poly = new SharpMap.Geometries.Polygon(select);
                                 VectorLayer vect = layer as VectorLayer;
                                 if (vect != null && vect.LayerName != "selected layer")
@@ -297,6 +306,7 @@ namespace SharpMapSource
                             str += niz.ToString();
                         MessageBox.Show(str);
                         select.Vertices.Clear();
+                        poligon.Clear();
                     }
                 }
                 else if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
@@ -375,6 +385,12 @@ namespace SharpMapSource
             layerDialog.StartPosition = FormStartPosition.CenterParent;
             //layerDialog.Parent = this;
             layerDialog.ShowDialog();
+        }
+
+        private void _sharpMapImage_Paint(object sender, PaintEventArgs e)
+        {
+            if (poligon.Count > 1)
+                e.Graphics.DrawPolygon(Pens.Red, poligon.ToArray());
         }
     }
 }
