@@ -12,6 +12,7 @@ using OSGeo.GDAL;
 using SharpMap.Layers;
 using SharpMapSource.Layers;
 using SharpMapSource.Interface;
+using SharpMap.Data.Providers;
 
 namespace SharpMapSource
 {
@@ -215,10 +216,16 @@ namespace SharpMapSource
                     String str = "";
                     foreach (var layer in _sharpMap.Layers)
                     {
-                        var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
-                        if (queryLayer != null)
+                        //var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                        //if (queryLayer != null)
+                        //{
+                        VectorLayer vLay = layer as VectorLayer;
+                        if(vLay != null && vLay.LayerName != "selected layer")
                         {
-                            queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+                            SharpMap.Data.Providers.NtsProvider provider = new NtsProvider(vLay.DataSource);
+                            provider.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+
+                            //queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
                             foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
                             {
                                 foreach (SharpMap.Data.FeatureDataRow dr in tab)
@@ -230,14 +237,24 @@ namespace SharpMapSource
                                     str += "\n";
                                 }
                             }
+                       // }
                         }
                     }
                     MessageBox.Show(str);
-                    /*SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer(new System.Random().ToString(), new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
-lay.Style.Fill = Brushes.Yellow;
-_sharpMap.Layers.Add(lay);
+                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+                    lay.Style.Fill = Brushes.Yellow;
+                    //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
+                    ILayer layerToRemove = _sharpMap.GetLayerByName("selected layer");
+                    if (layerToRemove != null)
+                    {
+                        _sharpMap.Layers.Remove(layerToRemove);
+                    }
+                    _sharpMap.Layers.Add(lay);
 
-this.RefreshMap();*/
+                    this.RefreshMap();
+
+                   // _sharpMap.Layers.Remove(lay);
+
                 }
                 else if (Control.ModifierKeys == Keys.Shift)
                 {
@@ -250,24 +267,31 @@ this.RefreshMap();*/
                         String str = "";
                         foreach (var layer in _sharpMap.Layers)
                         {
-                            var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
-                            if (queryLayer != null)
-                            {
+                            //var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                           // if (queryLayer != null)
+                           // {
+                                select.Vertices.Add(select.Vertices[0]);
                                 SharpMap.Geometries.Polygon poly = new SharpMap.Geometries.Polygon(select);
-                                queryLayer.ExecuteIntersectionQuery(select, ds);
-                                foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
+                                VectorLayer vect = layer as VectorLayer;
+                                if (vect != null && vect.LayerName != "selected layer")
                                 {
-                                    foreach (SharpMap.Data.FeatureDataRow dr in tab)
+                                    SharpMap.Data.Providers.NtsProvider provider = new SharpMap.Data.Providers.NtsProvider(vect.DataSource);
+                                    provider.ExecuteIntersectionQuery(poly, ds);
+                                    //queryLayer.ExecuteIntersectionQuery(poly.GetBoundingBox(), ds);
+                                    foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
                                     {
-                                        foreach (object o in dr.ItemArray)
+                                        foreach (SharpMap.Data.FeatureDataRow dr in tab)
                                         {
-                                            str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                            foreach (object o in dr.ItemArray)
+                                            {
+                                                str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                            }
+                                            str += "\n";
                                         }
-                                        str += "\n";
                                     }
                                 }
 
-                            }
+                            //}
                         }
                         foreach (SharpMap.Geometries.Point niz in select.Vertices)
                             str += niz.ToString();
