@@ -41,6 +41,8 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._dataGridLayers = new System.Windows.Forms.DataGridView();
+            this.layerEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.layer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainToolBar = new System.Windows.Forms.ToolStrip();
             this.toolZoomIn = new System.Windows.Forms.ToolStripButton();
             this.toolZoomOut = new System.Windows.Forms.ToolStripButton();
@@ -57,8 +59,7 @@
             this.btnLayerUp = new System.Windows.Forms.Button();
             this.btnLayerDown = new System.Windows.Forms.Button();
             this._sharpMapImage = new SharpMap.Forms.MapImage();
-            this.layerEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.layer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addPostGisVectorLayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridLayers)).BeginInit();
             this.mainToolBar.SuspendLayout();
@@ -99,6 +100,7 @@
             this.menyAddVectorLayer,
             this.menuAddRasterLayer,
             this.menuAddLabelLayer,
+            this.addPostGisVectorLayerToolStripMenuItem,
             this.toolStripSeparator2,
             this.removeLayerToolStripMenuItem});
             this.layersToolStripMenuItem.Name = "layersToolStripMenuItem";
@@ -108,33 +110,33 @@
             // menyAddVectorLayer
             // 
             this.menyAddVectorLayer.Name = "menyAddVectorLayer";
-            this.menyAddVectorLayer.Size = new System.Drawing.Size(164, 22);
+            this.menyAddVectorLayer.Size = new System.Drawing.Size(209, 22);
             this.menyAddVectorLayer.Text = "Add Vector Layer";
             this.menyAddVectorLayer.Click += new System.EventHandler(this.menyAddVectorLayer_Click);
             // 
             // menuAddRasterLayer
             // 
             this.menuAddRasterLayer.Name = "menuAddRasterLayer";
-            this.menuAddRasterLayer.Size = new System.Drawing.Size(164, 22);
+            this.menuAddRasterLayer.Size = new System.Drawing.Size(209, 22);
             this.menuAddRasterLayer.Text = "Add Raster Layer";
             this.menuAddRasterLayer.Click += new System.EventHandler(this.menuAddRasterLayer_Click);
             // 
             // menuAddLabelLayer
             // 
             this.menuAddLabelLayer.Name = "menuAddLabelLayer";
-            this.menuAddLabelLayer.Size = new System.Drawing.Size(164, 22);
+            this.menuAddLabelLayer.Size = new System.Drawing.Size(209, 22);
             this.menuAddLabelLayer.Text = "Add Label Layer";
             this.menuAddLabelLayer.Click += new System.EventHandler(this.menuAddLabelLayer_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(161, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(206, 6);
             // 
             // removeLayerToolStripMenuItem
             // 
             this.removeLayerToolStripMenuItem.Name = "removeLayerToolStripMenuItem";
-            this.removeLayerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.removeLayerToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.removeLayerToolStripMenuItem.Text = "Remove Layer";
             // 
             // helpToolStripMenuItem
@@ -169,6 +171,20 @@
             this._dataGridLayers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._dataGridLayers.Size = new System.Drawing.Size(190, 293);
             this._dataGridLayers.TabIndex = 12;
+            // 
+            // layerEnabled
+            // 
+            this.layerEnabled.HeaderText = "Enabled";
+            this.layerEnabled.Name = "layerEnabled";
+            this.layerEnabled.Width = 50;
+            // 
+            // layer
+            // 
+            this.layer.HeaderText = "Layer";
+            this.layer.Name = "layer";
+            this.layer.ReadOnly = true;
+            this.layer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.layer.Width = 135;
             // 
             // mainToolBar
             // 
@@ -342,19 +358,12 @@
             this._sharpMapImage.MouseDown += new SharpMap.Forms.MapImage.MouseEventHandler(this._sharpMapImage_MouseDown);
             this._sharpMapImage.MouseUp += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseUp);
             // 
-            // layerEnabled
+            // addPostGisVectorLayerToolStripMenuItem
             // 
-            this.layerEnabled.HeaderText = "Enabled";
-            this.layerEnabled.Name = "layerEnabled";
-            this.layerEnabled.Width = 50;
-            // 
-            // layer
-            // 
-            this.layer.HeaderText = "Layer";
-            this.layer.Name = "layer";
-            this.layer.ReadOnly = true;
-            this.layer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.layer.Width = 135;
+            this.addPostGisVectorLayerToolStripMenuItem.Name = "addPostGisVectorLayerToolStripMenuItem";
+            this.addPostGisVectorLayerToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.addPostGisVectorLayerToolStripMenuItem.Text = "Add Post Gis Vector Layer";
+            this.addPostGisVectorLayerToolStripMenuItem.Click += new System.EventHandler(this.addPostGisVectorLayerToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -418,6 +427,7 @@
         private System.Windows.Forms.ToolStripButton toolSelection;
         private System.Windows.Forms.DataGridViewCheckBoxColumn layerEnabled;
         private System.Windows.Forms.DataGridViewTextBoxColumn layer;
+        private System.Windows.Forms.ToolStripMenuItem addPostGisVectorLayerToolStripMenuItem;
     }
 }
 

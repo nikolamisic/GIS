@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using OSGeo.GDAL;
 using SharpMap.Layers;
 using SharpMapSource.Layers;
+using SharpMapSource.Interface;
 
 namespace SharpMapSource
 {
@@ -256,6 +257,14 @@ namespace SharpMapSource
                     this.SortLayers();
                 }
             }
+        }
+
+        private void addPostGisVectorLayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddPostGisLayer layerDialog = new AddPostGisLayer();
+            layerDialog.StartPosition = FormStartPosition.CenterParent;
+            //layerDialog.Parent = this;
+            layerDialog.ShowDialog();
         }
     }
 }

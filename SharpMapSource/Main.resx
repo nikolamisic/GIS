@@ -126,6 +126,12 @@
   <metadata name="layer.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="layerEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="layer.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="mainToolBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>132, 17</value>
   </metadata>
@@ -610,7 +616,7 @@
   <data name="btnLayerUp.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAACPtJREFUeF7dmflXVOcZx/trT/+Gpj/1nNgsxn1PjBqXuOBWwaVmadPGmLSJ1SQu
+        wAAADsABataJCQAACPtJREFUeF7dmflXVOcZx/trT/+Gpj/1nNgsxn1PjBqXuOBWwaVmadPGmLSJ1SQu
         SUBBiLgrrojAMDMsCggDzoBsDiiDw7AMDKKyCUHAhYIaVJRvn2d8oQMyOMs7g6ffcz7nwnDv+3yf7/vc
         y+XwGwyjbnU+Fl8Nn4YtgOC8Rnymu4l1mlrxyfBoWAK4VPcf7Da3I9DQgqPXOhBpahE/8b68H0BPD77X
         N+NzTQ1WqC1YnXAV/lfa0NjeJU7wrrwegH/uTQQWtVqbX0PN+8VVYVP2TXxLDIe8GkBa1W2Elt/FMqWZ
@@ -654,7 +660,7 @@
   <data name="btnLayerDown.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAB95JREFUeF7dm3lQ1Ocdxvt/O5OZTMeM0zRjnSRirCbGNI01rUcbjIkalKIm1nQ6
+        wAAADsABataJCQAAB95JREFUeF7dm3lQ1Ocdxvt/O5OZTMeM0zRjnSRirCbGNI01rUcbjIkalKIm1nQ6
         nWlIbDRBowY0eKSay9YLFORajr2FJaABFgS5bxaBxY0cBpQBnMp9H0/f784Ls+BiWPZ9F6bPzGd+O/D7
         vd/n+7zHcv4EEtTcNYi7Hf2MASE0tvfjfs8gH12shAbQ2DmA1yPN8NLdxrvxddhlqBUCjeWhtmCryoKO
         vmFeTYyEBvBX/W2cr2pDRF0XAs1tCKxuF0IAG0vZ0INj+S3wM/7Aq4mR0AD2pzbAJ60BXqpq7NDcEoqn
@@ -691,12 +697,6 @@
         SUVORK5CYII=
 </value>
   </data>
-  <metadata name="layerEnabled.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="layer.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>54</value>
   </metadata>
