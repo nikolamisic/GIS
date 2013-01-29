@@ -270,6 +270,11 @@ namespace SharpMapSource
                     if (ImagePos.Button == System.Windows.Forms.MouseButtons.Right)
                     {
                         this._sharpMapImage.Refresh();
+                        SharpMap.Geometries.LinearRing pom = new SharpMap.Geometries.LinearRing();
+                        foreach (Point p in poligon)
+                        {
+                            pom.Vertices.Add(_sharpMap.ImageToWorld(p));
+                        }
                         var pp = _sharpMap.ImageToWorld(ImagePos.Location);
                         SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
                         String str = "";
@@ -279,8 +284,9 @@ namespace SharpMapSource
                            // if (queryLayer != null)
                            // {
                                 select.Vertices.Add(select.Vertices[0]);
-                            poligon.Add(poligon[0]);
-                                SharpMap.Geometries.Polygon poly = new SharpMap.Geometries.Polygon(select);
+                                poligon.Add(poligon[0]);
+                                pom.Vertices.Add(_sharpMap.ImageToWorld(poligon[0]));
+                                SharpMap.Geometries.Polygon poly = new SharpMap.Geometries.Polygon(pom);
                                 VectorLayer vect = layer as VectorLayer;
                                 if (vect != null && vect.LayerName != "selected layer")
                                 {
@@ -302,11 +308,22 @@ namespace SharpMapSource
 
                             //}
                         }
-                        foreach (SharpMap.Geometries.Point niz in select.Vertices)
+                        foreach (Point niz in poligon)
                             str += niz.ToString();
+                        //MessageBox.Show(str);
                         MessageBox.Show(str);
                         select.Vertices.Clear();
                         poligon.Clear();
+                        SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+                        lay.Style.Fill = Brushes.Yellow;
+                        //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
+                        ILayer layerToRemove = _sharpMap.GetLayerByName("selected layer");
+                        if (layerToRemove != null)
+                        {
+                            _sharpMap.Layers.Remove(layerToRemove);
+                        }
+                        _sharpMap.Layers.Add(lay);
+                        RefreshMap();
                     }
                 }
                 else if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
