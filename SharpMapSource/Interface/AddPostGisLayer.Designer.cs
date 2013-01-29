@@ -37,14 +37,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.gridLayers = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.addLayerColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.layerNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnConnect = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtPort = new System.Windows.Forms.TextBox();
             this.database = new System.Windows.Forms.Label();
             this.txtDatabase = new System.Windows.Forms.TextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addLayerColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.layerNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gridLayers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,24 +131,6 @@
             this.gridLayers.Size = new System.Drawing.Size(374, 159);
             this.gridLayers.TabIndex = 6;
             // 
-            // Id
-            // 
-            this.Id.HeaderText = "No: ";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 40;
-            // 
-            // addLayerColumn
-            // 
-            this.addLayerColumn.HeaderText = "Add Layer";
-            this.addLayerColumn.Name = "addLayerColumn";
-            // 
-            // layerNameColumn
-            // 
-            this.layerNameColumn.HeaderText = "Layer";
-            this.layerNameColumn.Name = "layerNameColumn";
-            this.layerNameColumn.Width = 136;
-            // 
             // btnConnect
             // 
             this.btnConnect.Location = new System.Drawing.Point(311, 147);
@@ -191,6 +173,24 @@
             this.txtDatabase.Size = new System.Drawing.Size(207, 20);
             this.txtDatabase.TabIndex = 1;
             // 
+            // Id
+            // 
+            this.Id.HeaderText = "No: ";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Width = 40;
+            // 
+            // addLayerColumn
+            // 
+            this.addLayerColumn.HeaderText = "Add Layer";
+            this.addLayerColumn.Name = "addLayerColumn";
+            // 
+            // layerNameColumn
+            // 
+            this.layerNameColumn.HeaderText = "Layer";
+            this.layerNameColumn.Name = "layerNameColumn";
+            this.layerNameColumn.Width = 230;
+            // 
             // AddPostGisLayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,13 +232,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.DataGridView gridLayers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn addLayerColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn layerNameColumn;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.Label database;
         private System.Windows.Forms.TextBox txtDatabase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn addLayerColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn layerNameColumn;
     }
 }
