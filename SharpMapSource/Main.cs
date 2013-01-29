@@ -19,6 +19,7 @@ namespace SharpMapSource
     {
         private SharpMap.Map _sharpMap;
         private LayerManager _manager;
+        private SharpMap.Geometries.LinearRing select;
 
         private const float ZOOM_FACTOR = 0.3f;
         //private String DATA_NAME = "World Countries";
@@ -33,6 +34,7 @@ namespace SharpMapSource
             _sharpMap = new SharpMap.Map(this._sharpMapImage.Size);
             _sharpMap.BackColor = Color.White;
             this._manager = new LayerManager(this._sharpMap);
+            this.select = new SharpMap.Geometries.LinearRing();
 
             RefreshMap();
         }
@@ -189,20 +191,104 @@ namespace SharpMapSource
         {
             if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
             {
-                Point mapCenter = new Point(this._sharpMapImage.Size.Width / 2 - ImagePos.Location.X + this._panCoordinate.X
-                    , this._sharpMapImage.Size.Height / 2 - ImagePos.Location.Y + this._panCoordinate.Y);
-                this._sharpMap.Center = this._sharpMap.ImageToWorld(mapCenter);
-                this.RefreshMap();
+                if (Control.ModifierKeys == Keys.Shift || Control.ModifierKeys == Keys.Control)
+                { }
+                else
+                {
+                    Point mapCenter = new Point(this._sharpMapImage.Size.Width / 2 - ImagePos.Location.X + this._panCoordinate.X
+                        , this._sharpMapImage.Size.Height / 2 - ImagePos.Location.Y + this._panCoordinate.Y);
+                    this._sharpMap.Center = this._sharpMap.ImageToWorld(mapCenter);
+                    this.RefreshMap();
+                }
             }
         }
 
         private void _sharpMapImage_MouseDown(SharpMap.Geometries.Point WorldPos, MouseEventArgs ImagePos)
         {
-            if(ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                this._panCoordinate = ImagePos.Location;
+                if (Control.ModifierKeys != Keys.Shift)
+                    this.select.Vertices.Clear();
+
+                if (Control.ModifierKeys == Keys.Control)
+                {
+                    var pp = _sharpMap.ImageToWorld(ImagePos.Location);
+                    SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
+                    String str = "";
+                    foreach (var layer in _sharpMap.Layers)
+                    {
+                        var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                        if (queryLayer != null)
+                        {
+                            queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+                            foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
+                            {
+                                foreach (SharpMap.Data.FeatureDataRow dr in tab)
+                                {
+                                    foreach (object o in dr.ItemArray)
+                                    {
+                                        str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                    }
+                                    str += "\n";
+                                }
+                            }
+                        }
+                    }
+                    MessageBox.Show(str);
+                    /*SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer(new System.Random().ToString(), new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+lay.Style.Fill = Brushes.Yellow;
+_sharpMap.Layers.Add(lay);
+
+this.RefreshMap();*/
+                }
+                else if (Control.ModifierKeys == Keys.Shift)
+                {
+                    SharpMap.Geometries.Point point = new SharpMap.Geometries.Point(ImagePos.X, ImagePos.Y);
+                    select.Vertices.Add(point);
+                    if (ImagePos.Button == System.Windows.Forms.MouseButtons.Right)
+                    {
+                        var pp = _sharpMap.ImageToWorld(ImagePos.Location);
+                        SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
+                        String str = "";
+                        foreach (var layer in _sharpMap.Layers)
+                        {
+                            var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                            if (queryLayer != null)
+                            {
+                                SharpMap.Geometries.Polygon poly = new SharpMap.Geometries.Polygon(select);
+                                queryLayer.ExecuteIntersectionQuery(select, ds);
+                                foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
+                                {
+                                    foreach (SharpMap.Data.FeatureDataRow dr in tab)
+                                    {
+                                        foreach (object o in dr.ItemArray)
+                                        {
+                                            str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                        }
+                                        str += "\n";
+                                    }
+                                }
+
+                            }
+                        }
+                        foreach (SharpMap.Geometries.Point niz in select.Vertices)
+                            str += niz.ToString();
+                        MessageBox.Show(str);
+                        select.Vertices.Clear();
+                    }
+                }
+                else if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    this._panCoordinate = ImagePos.Location;
+                }
+                /*else
+                {
+                    //--> Convert mouse click point from image coordinates to world coordinates
+                    SharpMap.Geometries.Point p = _sharpMap.ImageToWorld(new PointF(ImagePos.X, ImagePos.Y));
+                    //--> Recenter map
+                    _sharpMap.Center.X = p.X;
+                    _sharpMap.Center.Y = p.Y;
+                    RefreshMap();
+                }*/
             }
-        }
 
         public void SortLayers()
         {
