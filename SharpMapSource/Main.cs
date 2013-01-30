@@ -24,12 +24,19 @@ namespace SharpMapSource
         private LayerManager _manager;
         private SharpMap.Geometries.LinearRing select;
         private IList<Point> poligon;
+        private bool _polySelection;
+
+        private AvailableModes _applicationMode;
 
         private const float ZOOM_FACTOR = 0.3f;
         //private String DATA_NAME = "World Countries";
         //private String DATA_PATH = "Data//world_adm0.shp";
         //pan image
         private Point _panCoordinate;
+
+        private Image _backupImage;
+        private Point _selectionDownCoordinate;
+        private Point _selectionLastDownCoordinate;
 
         public Main()
         {
@@ -39,6 +46,11 @@ namespace SharpMapSource
             this._manager = new LayerManager(this._sharpMap);
             this.select = new SharpMap.Geometries.LinearRing();
             this.poligon = new List<Point>();
+            this._applicationMode = AvailableModes.ImagePan;
+            this._selectionDownCoordinate = new Point();
+            this._selectionLastDownCoordinate = new Point();
+            this._backupImage = null;
+            this._polySelection = false;
 
             RefreshMap();
         }
@@ -140,19 +152,11 @@ namespace SharpMapSource
                         {
                             exist = true;
                         }
-                        
                     }
                     if (exist == false)
                     {
-                        try
-                        {
-                            this._manager.AddRasterLayer(path);
-                            this._dataGridLayers.Rows.Add(true, dialog.SafeFileName);
-                        }
-                        catch (Exception excc)
-                        {
-                            MessageBox.Show(excc.StackTrace);
-                        }
+                        this._manager.AddRasterLayer(Path.GetFileNameWithoutExtension(path), path);
+                        this._dataGridLayers.Rows.Add(true, Path.GetFileNameWithoutExtension(path));
                     }
                     else
                     {
@@ -224,6 +228,24 @@ namespace SharpMapSource
         {
             this.lblWorldCoordiantes.Text = "World Coordinates: " + WorldPos.X + ":" + WorldPos.Y;
             this.lblImageCoordinates.Text = "Image Coordinates: " + ImagePos.X + ":" + ImagePos.Y;
+            if (this._applicationMode == AvailableModes.SelectFeaturesByRectangle)
+            {
+                if (this._sharpMapImage.Image != null)
+                {
+                    if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
+                    {
+                        Point currentPoint = ImagePos.Location;
+                        if (this._selectionLastDownCoordinate.X != -1)
+                        {
+                            //draw reverse rectanhgle selectionDown, selectionLastDown
+                            this.DrawRectangle(this._selectionDownCoordinate, this._selectionLastDownCoordinate);
+                        }
+                        this._selectionLastDownCoordinate = ImagePos.Location;
+                        //Draw reversible rectangle // selectionDown, current
+                        this.DrawRectangle(this._selectionDownCoordinate, currentPoint);
+                    }
+                }
+            }
         }
 
         private void Main_SizeChanged(object sender, EventArgs e)
@@ -232,12 +254,86 @@ namespace SharpMapSource
             this.RefreshMap();
         }
 
+        private void DrawRectangle(Point p1, Point p2)
+        {
+            Image image = (Image)this._backupImage.Clone();
+
+            Graphics g = Graphics.FromImage(image);
+
+
+            Rectangle rectangle = new Rectangle();
+            if (p1.X < p2.X)
+            {
+                rectangle.X += p1.X;
+                rectangle.Width += p2.X - p1.X;
+            }
+            else
+            {
+                rectangle.X += p2.X;
+                rectangle.Width += p1.X - p2.X;
+            }
+            if (p1.Y < p2.Y)
+            {
+                rectangle.Y += p1.Y;
+                rectangle.Height += p2.Y - p1.Y;
+            }
+            else
+            {
+                rectangle.Y += p2.Y;
+                rectangle.Height += p1.Y - p2.Y;
+            }
+            g.DrawRectangle(new Pen(Color.Red),rectangle);
+            this._sharpMapImage.Image = image;
+            this._sharpMapImage.Invalidate();
+        }
+
         private void sharpMapImage_MouseUp(SharpMap.Geometries.Point WorldPos, MouseEventArgs ImagePos)
         {
+            if (this._applicationMode == AvailableModes.ImagePan)
+            {
+                if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    Point mapCenter = new Point(this._sharpMapImage.Size.Width / 2 - ImagePos.Location.X + this._panCoordinate.X
+                            , this._sharpMapImage.Size.Height / 2 - ImagePos.Location.Y + this._panCoordinate.Y);
+                    this._sharpMap.Center = this._sharpMap.ImageToWorld(mapCenter);
+                    this.RefreshMap();
+                }
+            }
+            else if(this._applicationMode == AvailableModes.IdentifyFeature)
+            {
+            }
+            else if (this._applicationMode == AvailableModes.SelectFeaturesByRectangle)
+            {
+                if (this._sharpMapImage.Image != null)
+                {
+                    if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
+                    {
+                        if (this._selectionLastDownCoordinate.X != -1)
+                        {
+                            //draw polygon selectiondowncoordinate, selectionlastcoordinate
+                            this.DrawRectangle(this._selectionDownCoordinate, this._selectionLastDownCoordinate);
+                        }
+                        this._sharpMapImage.Image = this._backupImage;
+                        this._sharpMapImage.Invalidate();
+
+                        this._selectionDownCoordinate.X = -1;
+                        this._selectionDownCoordinate.Y = -1;
+
+                        this._selectionLastDownCoordinate.X = -1;
+                        this._selectionLastDownCoordinate.Y = -1;
+
+                    }
+                }
+            }
+            else if(this._applicationMode == AvailableModes.SelectFeaturesByPolygon)
+            {
+            }
+            /*
             if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 if (Control.ModifierKeys == Keys.Shift || Control.ModifierKeys == Keys.Control)
-                { }
+                { 
+                }
                 else
                 {
                     Point mapCenter = new Point(this._sharpMapImage.Size.Width / 2 - ImagePos.Location.X + this._panCoordinate.X
@@ -246,10 +342,157 @@ namespace SharpMapSource
                     this.RefreshMap();
                 }
             }
+             */
         }
 
         private void _sharpMapImage_MouseDown(SharpMap.Geometries.Point WorldPos, MouseEventArgs ImagePos)
         {
+            if (this._applicationMode == AvailableModes.ImagePan)
+            {
+                if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    this._panCoordinate = ImagePos.Location;
+                }
+            }
+            else if (this._applicationMode == AvailableModes.IdentifyFeature)
+            {
+                var pp = _sharpMap.ImageToWorld(ImagePos.Location);
+                SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
+                String str = "";
+                foreach (var layer in _sharpMap.Layers)
+                {
+                    //var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                    //if (queryLayer != null)
+                    //{
+                    VectorLayer vLay = layer as VectorLayer;
+                    if (vLay != null && vLay.LayerName != "selected layer")
+                    {
+                        SharpMap.Data.Providers.NtsProvider provider = new NtsProvider(vLay.DataSource);
+                        provider.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+
+                        //queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+                        foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
+                        {
+                            foreach (SharpMap.Data.FeatureDataRow dr in tab)
+                            {
+                                foreach (object o in dr.ItemArray)
+                                {
+                                    str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                }
+                                str += "\n";
+                            }
+                        }
+                        // }
+                    }
+                }
+                MessageBox.Show(str);
+                SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+                lay.Style.Fill = Brushes.Yellow;
+                //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
+                ILayer layerToRemove = _sharpMap.GetLayerByName("selected layer");
+                if (layerToRemove != null)
+                {
+                    _sharpMap.Layers.Remove(layerToRemove);
+                }
+                _sharpMap.Layers.Add(lay);
+
+                this.RefreshMap();
+
+                // _sharpMap.Layers.Remove(lay);
+            }
+            else if (this._applicationMode == AvailableModes.SelectFeaturesByRectangle)
+            {
+                if (ImagePos.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    if (this._sharpMapImage.Image != null)
+                    {
+                        this._backupImage = (Image)this._sharpMapImage.Image.Clone();
+
+                        this._selectionDownCoordinate.X = ImagePos.X;
+                        this._selectionDownCoordinate.Y = ImagePos.Y;
+
+                        this._selectionLastDownCoordinate.X = -1;
+                        this._selectionLastDownCoordinate.Y = -1;
+                    }
+                }
+            }
+            else if (this._applicationMode == AvailableModes.SelectFeaturesByPolygon)
+            {
+                SharpMap.Geometries.Point point = new SharpMap.Geometries.Point(ImagePos.X, ImagePos.Y);
+                select.Vertices.Add(point);
+                poligon.Add(new Point(ImagePos.X,ImagePos.Y));
+                //Graphics olovka = this.CreateGraphics();
+                if (this._polySelection == false)
+                {
+                    if (this._sharpMapImage.Image != null)
+                    {
+                        this._backupImage = (Image)this._sharpMapImage.Image.Clone();
+                    }
+                }
+                this._polySelection = true;
+                this.DrawPolygon();
+
+                if (ImagePos.Button == System.Windows.Forms.MouseButtons.Right)
+                {
+                    this._polySelection = false;
+                    this._sharpMapImage.Refresh();
+                    SharpMap.Geometries.LinearRing pom = new SharpMap.Geometries.LinearRing();
+                    foreach (Point p in poligon)
+                    {
+                        pom.Vertices.Add(_sharpMap.ImageToWorld(p));
+                    }
+                    var pp = _sharpMap.ImageToWorld(ImagePos.Location);
+                    SharpMap.Data.FeatureDataSet ds = new SharpMap.Data.FeatureDataSet();
+                    String str = "";
+                    foreach (var layer in _sharpMap.Layers)
+                    {
+                        //var queryLayer = layer as SharpMap.Layers.ICanQueryLayer;
+                        // if (queryLayer != null)
+                        // {
+                        select.Vertices.Add(select.Vertices[0]);
+                        poligon.Add(poligon[0]);
+                        pom.Vertices.Add(_sharpMap.ImageToWorld(poligon[0]));
+                        SharpMap.Geometries.Polygon poly = new SharpMap.Geometries.Polygon(pom);
+                        VectorLayer vect = layer as VectorLayer;
+                        if (vect != null && vect.LayerName != "selected layer")
+                        {
+                            SharpMap.Data.Providers.NtsProvider provider = new SharpMap.Data.Providers.NtsProvider(vect.DataSource);
+                            provider.ExecuteIntersectionQuery(poly, ds);
+                            //queryLayer.ExecuteIntersectionQuery(poly.GetBoundingBox(), ds);
+                            foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
+                            {
+                                foreach (SharpMap.Data.FeatureDataRow dr in tab)
+                                {
+                                    foreach (object o in dr.ItemArray)
+                                    {
+                                        str += o.ToString() + " | " + _sharpMap.Zoom.ToString();
+                                    }
+                                    str += "\n";
+                                }
+                            }
+                        }
+
+                        //}
+                    }
+                    foreach (Point niz in poligon)
+                        str += niz.ToString();
+                    //MessageBox.Show(str);
+                    MessageBox.Show(str);
+                    select.Vertices.Clear();
+                    poligon.Clear();
+                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+                    lay.Style.Fill = Brushes.Yellow;
+                    //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
+                    ILayer layerToRemove = _sharpMap.GetLayerByName("selected layer");
+                    if (layerToRemove != null)
+                    {
+                        _sharpMap.Layers.Remove(layerToRemove);
+                    }
+                    _sharpMap.Layers.Add(lay);
+                    RefreshMap();
+                }
+            }
+            /*
             if (Control.ModifierKeys != Keys.Shift)
             {
                 this.select.Vertices.Clear();
@@ -381,7 +624,38 @@ namespace SharpMapSource
                     _sharpMap.Center.Y = p.Y;
                     RefreshMap();
                 }*/
+        }
+
+
+        public void DrawPolygon()
+        {
+            if (this._polySelection)
+            {
+                if (this.poligon.Count > 2)
+                {
+                    if (this._backupImage != null)
+                    {
+                        Image drawingImage = (Image)this._backupImage.Clone();
+                        Graphics g = Graphics.FromImage(drawingImage);
+                        g.DrawPolygon(new Pen(Color.Red), this.poligon.ToArray<Point>());
+                        this._sharpMapImage.Image = drawingImage;
+                        this._sharpMapImage.Invalidate();
+                    }
+                }
+                else if (this.poligon.Count == 2)
+                {
+                    if (this._backupImage != null)
+                    {
+                        Image drawingImage = (Image)this._backupImage.Clone();
+                        Graphics g = Graphics.FromImage(drawingImage);
+                        g.DrawPolygon(new Pen(Color.Red), this.poligon.ToArray<Point>());
+                        g.DrawLine(new Pen(Color.Red), this.poligon[0], this.poligon[1]);
+                        this._sharpMapImage.Image = drawingImage;
+                        this._sharpMapImage.Invalidate();
+                    }
+                }
             }
+        }
 
         public void SortLayers()
         {
@@ -447,26 +721,61 @@ namespace SharpMapSource
             layerDialog.ShowDialog();
         }
 
-        private void _sharpMapImage_Paint(object sender, PaintEventArgs e)
-        {
-            if (poligon.Count > 1)
-                e.Graphics.DrawPolygon(Pens.Red, poligon.ToArray());
-        }
-
         private void AddedNewPostGisLayer(object sender, PostGisEventArgs e)
         {
-            this._manager.AddVectorLayer(e.LayerName, e.PostGis);
-            this._dataGridLayers.Rows.Add(true, e.LayerName);
-            //MessageBox.Show(e.LayerName);
-            try
+            bool exists = false;
+            foreach(DataGridViewRow row in this._dataGridLayers.Rows)
             {
-                _sharpMap.ZoomToExtents();
-                RefreshMap();
+                if(string.Equals( (string)row.Cells[1].Value,e.LayerName))
+                {
+                    exists = true;
+                }
             }
-            catch (Exception)
+            if (exists == false)
             {
-                //MessageBox.Show("Layer already inserted");
+                this._manager.AddVectorLayer(e.LayerName, e.PostGis);
+                this._dataGridLayers.Rows.Add(true, e.LayerName);
+                //MessageBox.Show(e.LayerName);
+                try
+                {
+                    _sharpMap.ZoomToExtents();
+                    RefreshMap();
+                }
+                catch (Exception)
+                {
+                    //MessageBox.Show("Layer already inserted");
+                }
             }
+        }
+
+        private void toolPan_Click(object sender, EventArgs e)
+        {
+            this._applicationMode = AvailableModes.ImagePan;
+            this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.Pan;
+            this.select.Vertices.Clear();
+            this.poligon.Clear();
+        }
+
+        private void toolIdentifyFeature_Click(object sender, EventArgs e)
+        {
+            this._applicationMode = AvailableModes.IdentifyFeature;
+            this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.None;
+        }
+
+        private void toolSelectByRectangle_Click(object sender, EventArgs e)
+        {
+            this._applicationMode = AvailableModes.SelectFeaturesByRectangle;
+            this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.None;
+            this.select.Vertices.Clear();
+            this.poligon.Clear();
+        }
+
+        private void toolSelectByPolygon_Click(object sender, EventArgs e)
+        {
+            this._applicationMode = AvailableModes.SelectFeaturesByPolygon;
+            this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.None;
+            this.select.Vertices.Clear();
+            this.poligon.Clear();
         }
     }
 }

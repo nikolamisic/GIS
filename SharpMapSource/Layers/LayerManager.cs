@@ -52,7 +52,7 @@ namespace SharpMapSource.Layers
             labelLayer.Style.Font = new Font(FontFamily.GenericSansSerif, 8);
         }
 
-        public void AddRasterLayer(string path)
+        public void AddRasterLayer(string layerName, string path)
         {
             string fileName = Path.GetFileNameWithoutExtension(path);
             GdalRasterLayer rasterLayer = new GdalRasterLayer(fileName,path);

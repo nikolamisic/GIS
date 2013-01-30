@@ -93,6 +93,26 @@ namespace SharpMapSource.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1359603397_draw_polygon {
+            get {
+                object obj = ResourceManager.GetObject("_1359603397_draw_polygon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1359603429_rounded_rectangle {
+            get {
+                object obj = ResourceManager.GetObject("_1359603429_rounded_rectangle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap down_icon {
             get {
                 object obj = ResourceManager.GetObject("down_icon", resourceCulture);

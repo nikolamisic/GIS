@@ -98,6 +98,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AvailableModes.cs" />
     <Compile Include="Interface\AddPostGisLayer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\1359424169_12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\1359603397_draw_polygon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\1359603429_rounded-rectangle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
