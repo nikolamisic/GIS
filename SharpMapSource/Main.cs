@@ -89,8 +89,25 @@ namespace SharpMapSource
                 if (File.Exists(path))
                 {
                     string layerName = Path.GetFileNameWithoutExtension(path);
-                    this._manager.AddVectorLayer(layerName, new SharpMap.Data.Providers.ShapeFile(path));
-                    this._dataGridLayers.Rows.Add( true,layerName);
+                    bool exist = false;
+                    foreach (DataGridViewRow row in this._dataGridLayers.Rows)
+                    {
+                        if (string.Equals((string)row.Cells[1].Value, layerName))
+                        {
+                            exist = true;
+                            break;
+                        }
+                    }
+                    if (exist == false)
+                    {
+                        this._manager.AddVectorLayer(layerName, new SharpMap.Data.Providers.ShapeFile(path));
+                        this._dataGridLayers.Rows.Add(true, layerName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Layer " + layerName + " allready exists!!!"
+                            , "Sharp Map Source", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             try
@@ -116,8 +133,32 @@ namespace SharpMapSource
                 path = dialog.FileName;
                 if (File.Exists(path))
                 {
-                    this._manager.AddRasterLayer(path);
-                    this._dataGridLayers.Rows.Add( true, dialog.SafeFileName);
+                    bool exist = false;
+                    foreach (DataGridViewRow row in this._dataGridLayers.Rows)
+                    {
+                        if (String.Equals((string)row.Cells[1].Value, dialog.SafeFileName))
+                        {
+                            exist = true;
+                        }
+                        
+                    }
+                    if (exist == false)
+                    {
+                        try
+                        {
+                            this._manager.AddRasterLayer(path);
+                            this._dataGridLayers.Rows.Add(true, dialog.SafeFileName);
+                        }
+                        catch (Exception excc)
+                        {
+                            MessageBox.Show(excc.StackTrace);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Layer " + dialog.SafeFileName + " allready exist!!!", "Sharp Map Source"
+                            , MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                     RefreshMap();
                 }
             }
