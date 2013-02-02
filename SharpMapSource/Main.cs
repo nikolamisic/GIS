@@ -170,7 +170,29 @@ namespace SharpMapSource
 
         private void menuAddLabelLayer_Click(object sender, EventArgs e)
         {
+            LabelLayerAddDialog dijalog = new LabelLayerAddDialog(this._sharpMap);
+            if(dijalog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                String layer = dijalog.retLayer;
+                String name = dijalog.retName;
 
+                SharpMap.Layers.LabelLayer labelLayer = new LabelLayer(layer + name);
+                SharpMap.Layers.VectorLayer lay = _sharpMap.GetLayerByName(layer) as SharpMap.Layers.VectorLayer;
+                if (lay != null)
+                {
+                    labelLayer.DataSource = lay.DataSource;
+                    labelLayer.LabelColumn = name;
+                    labelLayer.Style.CollisionDetection = true;
+                    //labelLayer.Style.CollisionBuffer = new SizeF(10, 10);
+                    labelLayer.LabelFilter = SharpMap.Rendering.LabelCollisionDetection.ThoroughCollisionDetection;
+                    labelLayer.MultipartGeometryBehaviour = SharpMap.Layers.LabelLayer.MultipartGeometryBehaviourEnum.Largest;
+                    labelLayer.Style.Font = new Font(FontFamily.GenericSansSerif, 8);
+
+                    _sharpMap.Layers.Add(labelLayer);
+                    this.RefreshMap();
+
+                }
+            }
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)

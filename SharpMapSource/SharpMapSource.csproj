@@ -105,6 +105,12 @@
     <Compile Include="Interface\AddPostGisLayer.Designer.cs">
       <DependentUpon>AddPostGisLayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="LabelLayerAddDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LabelLayerAddDialog.Designer.cs">
+      <DependentUpon>LabelLayerAddDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LayerInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Interface\AddPostGisLayer.resx">
       <DependentUpon>AddPostGisLayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelLayerAddDialog.resx">
+      <DependentUpon>LabelLayerAddDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LayerInfo.resx">
       <DependentUpon>LayerInfo.cs</DependentUpon>
