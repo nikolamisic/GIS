@@ -39,6 +39,9 @@
             this._layersDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._layersDataGrid.Location = new System.Drawing.Point(12, 12);
             this._layersDataGrid.Name = "_layersDataGrid";
+            this._layersDataGrid.ReadOnly = true;
+            this._layersDataGrid.RowHeadersVisible = false;
+            this._layersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._layersDataGrid.Size = new System.Drawing.Size(824, 334);
             this._layersDataGrid.TabIndex = 0;
             // 
