@@ -381,11 +381,12 @@ namespace SharpMapSource
                                 }
                                 str += "\n";
                             }
+                            showData(tab);
                         }
                         // }
                     }
                 }
-                MessageBox.Show(str);
+                //MessageBox.Show(str);
                 SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
                 lay.Style.Fill = Brushes.Yellow;
                 //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
@@ -469,6 +470,7 @@ namespace SharpMapSource
                                     }
                                     str += "\n";
                                 }
+                                showData(tab);
                             }
                         }
 
@@ -477,7 +479,7 @@ namespace SharpMapSource
                     foreach (Point niz in poligon)
                         str += niz.ToString();
                     //MessageBox.Show(str);
-                    MessageBox.Show(str);
+                    //MessageBox.Show(str);
                     select.Vertices.Clear();
                     poligon.Clear();
                     SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
@@ -776,6 +778,13 @@ namespace SharpMapSource
             this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.None;
             this.select.Vertices.Clear();
             this.poligon.Clear();
+        }
+
+        private void showData(SharpMap.Data.FeatureDataTable tabela)
+        {
+            LayerInfo lay = new LayerInfo(tabela);
+            //LayerInfo lay = new LayerInfo();
+            lay.Show();
         }
     }
 }
