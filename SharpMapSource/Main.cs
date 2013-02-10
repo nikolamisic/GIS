@@ -409,7 +409,7 @@ namespace SharpMapSource
                     }
                 }
                 //MessageBox.Show(str);
-                SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+                SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryFeatureProvider(ds.Tables[0]));
                 lay.Style.Fill = Brushes.Yellow;
                 //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
                 ILayer layerToRemove = _sharpMap.GetLayerByName("selected layer");
@@ -504,7 +504,7 @@ namespace SharpMapSource
                     //MessageBox.Show(str);
                     select.Vertices.Clear();
                     poligon.Clear();
-                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryProvider(ds.Tables[0]));
+                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryFeatureProvider(ds.Tables[0]));
                     lay.Style.Fill = Brushes.Yellow;
                     //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
                     ILayer layerToRemove = _sharpMap.GetLayerByName("selected layer");
@@ -807,6 +807,13 @@ namespace SharpMapSource
             LayerInfo lay = new LayerInfo(tabela);
             //LayerInfo lay = new LayerInfo();
             lay.Show();
+        }
+
+        private void spatialQueryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SpatialQuery query = new SpatialQuery(_sharpMap);
+            query.Show();
+
         }
     }
 }

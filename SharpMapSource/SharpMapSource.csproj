@@ -105,6 +105,12 @@
     <Compile Include="Interface\AddPostGisLayer.Designer.cs">
       <DependentUpon>AddPostGisLayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface\SpatialQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\SpatialQuery.Designer.cs">
+      <DependentUpon>SpatialQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="LabelLayerAddDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Interface\AddPostGisLayer.resx">
       <DependentUpon>AddPostGisLayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface\SpatialQuery.resx">
+      <DependentUpon>SpatialQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LabelLayerAddDialog.resx">
       <DependentUpon>LabelLayerAddDialog.cs</DependentUpon>

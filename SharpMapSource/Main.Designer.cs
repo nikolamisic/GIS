@@ -45,23 +45,24 @@
             this.layerEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.layer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainToolBar = new System.Windows.Forms.ToolStrip();
+            this.toolZoomIn = new System.Windows.Forms.ToolStripButton();
+            this.toolZoomOut = new System.Windows.Forms.ToolStripButton();
+            this.toolZoomToExtends = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolEditLayer = new System.Windows.Forms.ToolStripButton();
+            this.toolDeleteLayer = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolPan = new System.Windows.Forms.ToolStripButton();
+            this.toolIdentifyFeature = new System.Windows.Forms.ToolStripButton();
+            this.toolSelectByRectangle = new System.Windows.Forms.ToolStripButton();
+            this.toolSelectByPolygon = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblImageCoordinates = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblWorldCoordiantes = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnLayerUp = new System.Windows.Forms.Button();
             this.btnLayerDown = new System.Windows.Forms.Button();
-            this.toolZoomIn = new System.Windows.Forms.ToolStripButton();
-            this.toolZoomOut = new System.Windows.Forms.ToolStripButton();
-            this.toolZoomToExtends = new System.Windows.Forms.ToolStripButton();
-            this.toolEditLayer = new System.Windows.Forms.ToolStripButton();
-            this.toolDeleteLayer = new System.Windows.Forms.ToolStripButton();
-            this.toolPan = new System.Windows.Forms.ToolStripButton();
-            this.toolIdentifyFeature = new System.Windows.Forms.ToolStripButton();
-            this.toolSelectByRectangle = new System.Windows.Forms.ToolStripButton();
-            this.toolSelectByPolygon = new System.Windows.Forms.ToolStripButton();
             this._sharpMapImage = new SharpMap.Forms.MapImage();
+            this.spatialQueryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._dataGridLayers)).BeginInit();
             this.mainToolBar.SuspendLayout();
@@ -92,7 +93,7 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -104,7 +105,8 @@
             this.menuAddLabelLayer,
             this.addPostGisVectorLayerToolStripMenuItem,
             this.toolStripSeparator2,
-            this.removeLayerToolStripMenuItem});
+            this.removeLayerToolStripMenuItem,
+            this.spatialQueryToolStripMenuItem});
             this.layersToolStripMenuItem.Name = "layersToolStripMenuItem";
             this.layersToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.layersToolStripMenuItem.Text = "Layers";
@@ -218,15 +220,109 @@
             this.mainToolBar.TabIndex = 13;
             this.mainToolBar.Text = "Tools";
             // 
+            // toolZoomIn
+            // 
+            this.toolZoomIn.BackColor = System.Drawing.SystemColors.Control;
+            this.toolZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolZoomIn.Image = ((System.Drawing.Image)(resources.GetObject("toolZoomIn.Image")));
+            this.toolZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolZoomIn.Name = "toolZoomIn";
+            this.toolZoomIn.Size = new System.Drawing.Size(36, 29);
+            this.toolZoomIn.Text = "Zoom In";
+            this.toolZoomIn.Click += new System.EventHandler(this.toolZoomIn_Click);
+            // 
+            // toolZoomOut
+            // 
+            this.toolZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolZoomOut.Image = ((System.Drawing.Image)(resources.GetObject("toolZoomOut.Image")));
+            this.toolZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolZoomOut.Name = "toolZoomOut";
+            this.toolZoomOut.Size = new System.Drawing.Size(36, 29);
+            this.toolZoomOut.Text = "Zoom Out";
+            this.toolZoomOut.Click += new System.EventHandler(this.toolZoomOut_Click);
+            // 
+            // toolZoomToExtends
+            // 
+            this.toolZoomToExtends.AutoSize = false;
+            this.toolZoomToExtends.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.toolZoomToExtends.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolZoomToExtends.Image = global::SharpMapSource.Properties.Resources._1359423542_xmag;
+            this.toolZoomToExtends.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolZoomToExtends.Name = "toolZoomToExtends";
+            this.toolZoomToExtends.Size = new System.Drawing.Size(32, 32);
+            this.toolZoomToExtends.Text = "Zoom To Extends";
+            this.toolZoomToExtends.Click += new System.EventHandler(this.toolZoomToExtends_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
             // 
+            // toolEditLayer
+            // 
+            this.toolEditLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolEditLayer.Image = ((System.Drawing.Image)(resources.GetObject("toolEditLayer.Image")));
+            this.toolEditLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolEditLayer.Name = "toolEditLayer";
+            this.toolEditLayer.Size = new System.Drawing.Size(36, 29);
+            this.toolEditLayer.Text = "Edit Layer";
+            this.toolEditLayer.Click += new System.EventHandler(this.toolEditLayer_Click);
+            // 
+            // toolDeleteLayer
+            // 
+            this.toolDeleteLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolDeleteLayer.Image = global::SharpMapSource.Properties.Resources.remove;
+            this.toolDeleteLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDeleteLayer.Name = "toolDeleteLayer";
+            this.toolDeleteLayer.Size = new System.Drawing.Size(36, 29);
+            this.toolDeleteLayer.Text = "Remove Layer";
+            this.toolDeleteLayer.Click += new System.EventHandler(this.toolDeleteLayer_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 32);
+            // 
+            // toolPan
+            // 
+            this.toolPan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolPan.Image = ((System.Drawing.Image)(resources.GetObject("toolPan.Image")));
+            this.toolPan.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolPan.Name = "toolPan";
+            this.toolPan.Size = new System.Drawing.Size(36, 29);
+            this.toolPan.Text = "toolStripButton1";
+            this.toolPan.ToolTipText = "Pan";
+            this.toolPan.Click += new System.EventHandler(this.toolPan_Click);
+            // 
+            // toolIdentifyFeature
+            // 
+            this.toolIdentifyFeature.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolIdentifyFeature.Image = ((System.Drawing.Image)(resources.GetObject("toolIdentifyFeature.Image")));
+            this.toolIdentifyFeature.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolIdentifyFeature.Name = "toolIdentifyFeature";
+            this.toolIdentifyFeature.Size = new System.Drawing.Size(36, 29);
+            this.toolIdentifyFeature.Text = "Identify Feature";
+            this.toolIdentifyFeature.Click += new System.EventHandler(this.toolIdentifyFeature_Click);
+            // 
+            // toolSelectByRectangle
+            // 
+            this.toolSelectByRectangle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolSelectByRectangle.Image = global::SharpMapSource.Properties.Resources._1359603429_rounded_rectangle;
+            this.toolSelectByRectangle.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolSelectByRectangle.Name = "toolSelectByRectangle";
+            this.toolSelectByRectangle.Size = new System.Drawing.Size(36, 29);
+            this.toolSelectByRectangle.Text = "Select By Rectangle";
+            this.toolSelectByRectangle.Click += new System.EventHandler(this.toolSelectByRectangle_Click);
+            // 
+            // toolSelectByPolygon
+            // 
+            this.toolSelectByPolygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolSelectByPolygon.Image = global::SharpMapSource.Properties.Resources._1359603397_draw_polygon;
+            this.toolSelectByPolygon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolSelectByPolygon.Name = "toolSelectByPolygon";
+            this.toolSelectByPolygon.Size = new System.Drawing.Size(36, 29);
+            this.toolSelectByPolygon.Text = "Select By Polygon";
+            this.toolSelectByPolygon.Click += new System.EventHandler(this.toolSelectByPolygon_Click);
             // 
             // statusStrip1
             // 
@@ -275,100 +371,6 @@
             this.btnLayerDown.UseVisualStyleBackColor = true;
             this.btnLayerDown.Click += new System.EventHandler(this.btnLayerDown_Click);
             // 
-            // toolZoomIn
-            // 
-            this.toolZoomIn.BackColor = System.Drawing.SystemColors.Control;
-            this.toolZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolZoomIn.Image = ((System.Drawing.Image)(resources.GetObject("toolZoomIn.Image")));
-            this.toolZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolZoomIn.Name = "toolZoomIn";
-            this.toolZoomIn.Size = new System.Drawing.Size(36, 29);
-            this.toolZoomIn.Text = "Zoom In";
-            this.toolZoomIn.Click += new System.EventHandler(this.toolZoomIn_Click);
-            // 
-            // toolZoomOut
-            // 
-            this.toolZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolZoomOut.Image = ((System.Drawing.Image)(resources.GetObject("toolZoomOut.Image")));
-            this.toolZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolZoomOut.Name = "toolZoomOut";
-            this.toolZoomOut.Size = new System.Drawing.Size(36, 29);
-            this.toolZoomOut.Text = "Zoom Out";
-            this.toolZoomOut.Click += new System.EventHandler(this.toolZoomOut_Click);
-            // 
-            // toolZoomToExtends
-            // 
-            this.toolZoomToExtends.AutoSize = false;
-            this.toolZoomToExtends.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.toolZoomToExtends.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolZoomToExtends.Image = global::SharpMapSource.Properties.Resources._1359423542_xmag;
-            this.toolZoomToExtends.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolZoomToExtends.Name = "toolZoomToExtends";
-            this.toolZoomToExtends.Size = new System.Drawing.Size(32, 32);
-            this.toolZoomToExtends.Text = "Zoom To Extends";
-            this.toolZoomToExtends.Click += new System.EventHandler(this.toolZoomToExtends_Click);
-            // 
-            // toolEditLayer
-            // 
-            this.toolEditLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolEditLayer.Image = ((System.Drawing.Image)(resources.GetObject("toolEditLayer.Image")));
-            this.toolEditLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolEditLayer.Name = "toolEditLayer";
-            this.toolEditLayer.Size = new System.Drawing.Size(36, 29);
-            this.toolEditLayer.Text = "Edit Layer";
-            this.toolEditLayer.Click += new System.EventHandler(this.toolEditLayer_Click);
-            // 
-            // toolDeleteLayer
-            // 
-            this.toolDeleteLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolDeleteLayer.Image = global::SharpMapSource.Properties.Resources.remove;
-            this.toolDeleteLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDeleteLayer.Name = "toolDeleteLayer";
-            this.toolDeleteLayer.Size = new System.Drawing.Size(36, 29);
-            this.toolDeleteLayer.Text = "Remove Layer";
-            this.toolDeleteLayer.Click += new System.EventHandler(this.toolDeleteLayer_Click);
-            // 
-            // toolPan
-            // 
-            this.toolPan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolPan.Image = ((System.Drawing.Image)(resources.GetObject("toolPan.Image")));
-            this.toolPan.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolPan.Name = "toolPan";
-            this.toolPan.Size = new System.Drawing.Size(36, 29);
-            this.toolPan.Text = "toolStripButton1";
-            this.toolPan.ToolTipText = "Pan";
-            this.toolPan.Click += new System.EventHandler(this.toolPan_Click);
-            // 
-            // toolIdentifyFeature
-            // 
-            this.toolIdentifyFeature.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolIdentifyFeature.Image = ((System.Drawing.Image)(resources.GetObject("toolIdentifyFeature.Image")));
-            this.toolIdentifyFeature.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolIdentifyFeature.Name = "toolIdentifyFeature";
-            this.toolIdentifyFeature.Size = new System.Drawing.Size(36, 29);
-            this.toolIdentifyFeature.Text = "Identify Feature";
-            this.toolIdentifyFeature.Click += new System.EventHandler(this.toolIdentifyFeature_Click);
-            // 
-            // toolSelectByRectangle
-            // 
-            this.toolSelectByRectangle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolSelectByRectangle.Image = global::SharpMapSource.Properties.Resources._1359603429_rounded_rectangle;
-            this.toolSelectByRectangle.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolSelectByRectangle.Name = "toolSelectByRectangle";
-            this.toolSelectByRectangle.Size = new System.Drawing.Size(36, 29);
-            this.toolSelectByRectangle.Text = "Select By Rectangle";
-            this.toolSelectByRectangle.Click += new System.EventHandler(this.toolSelectByRectangle_Click);
-            // 
-            // toolSelectByPolygon
-            // 
-            this.toolSelectByPolygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolSelectByPolygon.Image = global::SharpMapSource.Properties.Resources._1359603397_draw_polygon;
-            this.toolSelectByPolygon.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolSelectByPolygon.Name = "toolSelectByPolygon";
-            this.toolSelectByPolygon.Size = new System.Drawing.Size(36, 29);
-            this.toolSelectByPolygon.Text = "Select By Polygon";
-            this.toolSelectByPolygon.Click += new System.EventHandler(this.toolSelectByPolygon_Click);
-            // 
             // _sharpMapImage
             // 
             this._sharpMapImage.ActiveTool = SharpMap.Forms.MapImage.Tools.Pan;
@@ -390,6 +392,13 @@
             this._sharpMapImage.MouseMove += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseMove);
             this._sharpMapImage.MouseDown += new SharpMap.Forms.MapImage.MouseEventHandler(this._sharpMapImage_MouseDown);
             this._sharpMapImage.MouseUp += new SharpMap.Forms.MapImage.MouseEventHandler(this.sharpMapImage_MouseUp);
+            // 
+            // spatialQueryToolStripMenuItem
+            // 
+            this.spatialQueryToolStripMenuItem.Name = "spatialQueryToolStripMenuItem";
+            this.spatialQueryToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.spatialQueryToolStripMenuItem.Text = "Spatial Query";
+            this.spatialQueryToolStripMenuItem.Click += new System.EventHandler(this.spatialQueryToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -457,6 +466,7 @@
         private System.Windows.Forms.ToolStripMenuItem addPostGisVectorLayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolSelectByRectangle;
         private System.Windows.Forms.ToolStripButton toolSelectByPolygon;
+        private System.Windows.Forms.ToolStripMenuItem spatialQueryToolStripMenuItem;
     }
 }
 
