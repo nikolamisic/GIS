@@ -8,10 +8,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 namespace SharpMapSource.Properties {
     using System;
     
     
+=======
+namespace SharpMapSource.Properties
+{
+
+
+>>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,6 +29,7 @@ namespace SharpMapSource.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+<<<<<<< HEAD
     internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
@@ -32,25 +40,53 @@ namespace SharpMapSource.Properties {
         internal Resources() {
         }
         
+=======
+    internal class Resources
+    {
+
+        private static global::System.Resources.ResourceManager resourceMan;
+
+        private static global::System.Globalization.CultureInfo resourceCulture;
+
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources()
+        {
+        }
+
+>>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+<<<<<<< HEAD
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
+=======
+        internal static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if ((resourceMan == null))
+                {
+>>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharpMapSource.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+<<<<<<< HEAD
         internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
@@ -169,5 +205,18 @@ namespace SharpMapSource.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+=======
+        internal static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
+                return resourceCulture;
+            }
+            set
+            {
+                resourceCulture = value;
+            }
+        }
+>>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
     }
 }
