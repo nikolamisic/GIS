@@ -14,6 +14,16 @@ namespace SharpMapSource.Interface
     {
 
         private SharpMap.Map _map;
+        private Main _parent;
+
+        public IEnumerable<SharpMap.Geometries.Geometry> getGeom(SharpMap.Geometries.GeometryCollection g)
+        {
+
+            foreach (SharpMap.Geometries.Geometry geo in g.Collection)
+            {
+                yield return geo;
+            }
+        }
 
         public SpatialQuery()
         {
@@ -24,6 +34,13 @@ namespace SharpMapSource.Interface
         {
             InitializeComponent();
             this._map = mapa;
+        }
+
+        public SpatialQuery(SharpMap.Map mapa, Main caller)
+        {
+            InitializeComponent();
+            this._map = mapa;
+            this._parent = caller;
         }
 
         private void SpatialQuery_Load(object sender, EventArgs e)
@@ -50,26 +67,48 @@ namespace SharpMapSource.Interface
                     SharpMap.Layers.VectorLayer layer1 = (SharpMap.Layers.VectorLayer)_map.GetLayerByName(_cmbLayer1.SelectedItem.ToString());
                     SharpMap.Layers.VectorLayer layer2 = (SharpMap.Layers.VectorLayer)_map.GetLayerByName(_cmbLayer2.SelectedItem.ToString());
 
-                    if (layer1.LayerName == "selected layer")
-                        layer1.ExecuteIntersectionQuery(layer2.DataSource.GetExtents(), ds);
-                    else
+                    SharpMap.Data.Providers.NtsProvider nts = new SharpMap.Data.Providers.NtsProvider(layer1.DataSource);
+                    SharpMap.Data.Providers.NtsProvider nts2 = new SharpMap.Data.Providers.NtsProvider(layer2.DataSource);
+
+                    SharpMap.Geometries.GeometryCollection coll = new SharpMap.Geometries.GeometryCollection();
+                    ds.Tables.Clear();
+
+                    SharpMap.Data.FeatureDataSet set = new SharpMap.Data.FeatureDataSet();
+                    nts.GetFeaturesInView(nts.GetExtents(), set);
+
+                    SharpMap.Data.FeatureDataSet res = new SharpMap.Data.FeatureDataSet();
+                    res.Tables.Add(set.Tables[0].Clone());
+                    res.Tables[0].Rows.Clear();
+
+                    ds.Tables.Clear();
+                    foreach (SharpMap.Data.FeatureDataRow row in set.Tables[0].Rows)
                     {
-                        SharpMap.Data.Providers.NtsProvider nts = new SharpMap.Data.Providers.NtsProvider(layer1.DataSource);
-                        nts.ExecuteIntersectionQuery(layer2.DataSource.GetExtents(), ds);
+                        nts2.ExecuteIntersectionQuery(row.Geometry, ds);
+
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            SharpMap.Data.FeatureDataRow red = res.Tables[0].NewRow();
+                            red.Geometry = row.Geometry;
+                            red.ItemArray = row.ItemArray;
+                            res.Tables[0].AddRow(red);
+                        }
+                        ds.Tables.Clear();
                     }
 
-                    LayerInfo info = new LayerInfo(ds.Tables[0]);
-                    info.Show();
-                    //ubacivane u selekciju
-                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryFeatureProvider(ds.Tables[0]));
+                    LayerInfo l = new LayerInfo(res.Tables[0]);
+                    l.Show();
+
+                    SharpMap.Data.Providers.GeometryFeatureProvider prov = new SharpMap.Data.Providers.GeometryFeatureProvider(res.Tables[0]);
+
+                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", prov);
                     lay.Style.Fill = Brushes.Yellow;
-                    //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
                     SharpMap.Layers.ILayer layerToRemove = _map.GetLayerByName("selected layer");
                     if (layerToRemove != null)
                     {
                         _map.Layers.Remove(layerToRemove);
                     }
                     _map.Layers.Add(lay);
+                    this._parent.RefreshMap();
                 }
                 else if (_cmbOperation.SelectedIndex == 1)//within
                 {
@@ -80,19 +119,45 @@ namespace SharpMapSource.Interface
                     SharpMap.Data.Providers.NtsProvider nts = new SharpMap.Data.Providers.NtsProvider(layer1.DataSource);
                     SharpMap.Data.Providers.NtsProvider nts2 = new SharpMap.Data.Providers.NtsProvider(layer2.DataSource, CreateBuffers);
 
-                    nts.ExecuteIntersectionQuery(nts2.GetExtents(), ds);
-                    LayerInfo info = new LayerInfo(ds.Tables[0]);
-                    info.Show();
-                    //ubacivanje u selekciju
-                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryFeatureProvider(ds.Tables[0]));
+                    SharpMap.Geometries.GeometryCollection coll = new SharpMap.Geometries.GeometryCollection();
+                    ds.Tables.Clear();
+
+                    SharpMap.Data.FeatureDataSet set = new SharpMap.Data.FeatureDataSet();
+                    nts.GetFeaturesInView(nts.GetExtents(), set);
+
+                    SharpMap.Data.FeatureDataSet res = new SharpMap.Data.FeatureDataSet();
+                    res.Tables.Add(set.Tables[0].Clone());
+                    res.Tables[0].Rows.Clear();
+
+                    ds.Tables.Clear();
+                    foreach (SharpMap.Data.FeatureDataRow row in set.Tables[0].Rows)
+                    {
+                        nts2.ExecuteIntersectionQuery(row.Geometry, ds);
+
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            SharpMap.Data.FeatureDataRow red = res.Tables[0].NewRow();
+                            red.Geometry = row.Geometry;
+                            red.ItemArray = row.ItemArray;
+                            res.Tables[0].AddRow(red);
+                        }
+                        ds.Tables.Clear();
+                    }
+
+                    LayerInfo l = new LayerInfo(res.Tables[0]);
+                    l.Show();
+
+                    SharpMap.Data.Providers.GeometryFeatureProvider prov = new SharpMap.Data.Providers.GeometryFeatureProvider(res.Tables[0]);
+
+                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", prov);
                     lay.Style.Fill = Brushes.Yellow;
-                    //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
                     SharpMap.Layers.ILayer layerToRemove = _map.GetLayerByName("selected layer");
                     if (layerToRemove != null)
                     {
                         _map.Layers.Remove(layerToRemove);
                     }
                     _map.Layers.Add(lay);
+                    this._parent.RefreshMap();
                 }
                 else//van
                 {
@@ -103,26 +168,54 @@ namespace SharpMapSource.Interface
                     SharpMap.Data.Providers.NtsProvider nts = new SharpMap.Data.Providers.NtsProvider(layer1.DataSource);
                     SharpMap.Data.Providers.NtsProvider nts2 = new SharpMap.Data.Providers.NtsProvider(layer2.DataSource, CreateBuffers);
 
-                    nts.ExecuteIntersectionQuery(nts2.GetExtents(), ds);
-                    LayerInfo info = new LayerInfo(ds.Tables[0]);
-                    info.Show();
-                    //ubacivanje u selekciju
-                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", new SharpMap.Data.Providers.GeometryFeatureProvider(ds.Tables[0]));
+                    SharpMap.Geometries.GeometryCollection coll = new SharpMap.Geometries.GeometryCollection();
+                    ds.Tables.Clear();
+
+                    SharpMap.Data.FeatureDataSet set = new SharpMap.Data.FeatureDataSet();
+                    nts.GetFeaturesInView(nts.GetExtents(),set);
+
+                    SharpMap.Data.FeatureDataSet res = new SharpMap.Data.FeatureDataSet();
+                    res.Tables.Add(set.Tables[0].Clone());
+                    res.Tables[0].Rows.Clear();
+
+                    ds.Tables.Clear();
+                    foreach (SharpMap.Data.FeatureDataRow row in set.Tables[0].Rows)
+                    {
+                        nts2.ExecuteIntersectionQuery(row.Geometry, ds);
+
+                        if (ds.Tables[0].Rows.Count <= 0)
+                        {
+                            SharpMap.Data.FeatureDataRow red = res.Tables[0].NewRow();
+                            red.Geometry = row.Geometry;
+                            red.ItemArray = row.ItemArray;
+                            res.Tables[0].AddRow(red);
+                        }
+                        ds.Tables.Clear();
+                    }
+
+                    LayerInfo l = new LayerInfo(res.Tables[0]);
+                    l.Show();
+
+                    SharpMap.Data.Providers.GeometryFeatureProvider prov = new SharpMap.Data.Providers.GeometryFeatureProvider(res.Tables[0]);
+
+                    SharpMap.Layers.VectorLayer lay = new SharpMap.Layers.VectorLayer("selected layer", prov);
                     lay.Style.Fill = Brushes.Yellow;
-                    //_manager.AddVectorLayer(lay.LayerName,lay.DataSource);
                     SharpMap.Layers.ILayer layerToRemove = _map.GetLayerByName("selected layer");
                     if (layerToRemove != null)
                     {
                         _map.Layers.Remove(layerToRemove);
                     }
                     _map.Layers.Add(lay);
+                    this._parent.RefreshMap();
                 }
             }
         }
 
         private void CreateBuffers(List<GisSharpBlog.NetTopologySuite.Features.Feature> features)
         {
-            double buff = Double.Parse(_txtbDistance.Text);
+            double buff = 0;
+            if(_txtbDistance.Text != "")
+                buff = Double.Parse(_txtbDistance.Text);
             switch (_cmbUnits.SelectedIndex)
             {
                 case 1: buff /= 100; break; //cm

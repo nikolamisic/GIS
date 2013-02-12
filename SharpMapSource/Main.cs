@@ -811,7 +811,7 @@ namespace SharpMapSource
 
         private void spatialQueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SpatialQuery query = new SpatialQuery(_sharpMap);
+            SpatialQuery query = new SpatialQuery(_sharpMap, this);
             query.Show();
 
         }
