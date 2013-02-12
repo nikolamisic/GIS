@@ -1,18 +1,7 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<<<<<<< HEAD
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SharpMapSource.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="FWToolsBinPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Program Files\FWTools2.4.7\bin</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>
-=======
+﻿﻿<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles>
     <Profile Name="(Default)" />
   </Profiles>
   <Settings />
 </SettingsFile>
->>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677

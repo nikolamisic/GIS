@@ -22,10 +22,6 @@ namespace SharpMapSource.Layers
         {
             this.map = map;
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
         public void AddVectorLayer(string name, IProvider provider)
         {
             VectorLayer layer = new VectorLayer(name);
@@ -42,10 +38,6 @@ namespace SharpMapSource.Layers
                 MessageBox.Show(e.StackTrace);
             }
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
         public void AddLabellayer(string name, string columnName, IProvider dataProvider)
         { 
             LabelLayer labelLayer = new LabelLayer(name);
@@ -57,12 +49,8 @@ namespace SharpMapSource.Layers
             labelLayer.MultipartGeometryBehaviour = SharpMap.Layers.LabelLayer.MultipartGeometryBehaviourEnum.Largest;
             labelLayer.Style.Font = new Font(FontFamily.GenericSansSerif, 8);
         }
-<<<<<<< HEAD
 
         public void AddRasterLayer(string layerName, string path)
-=======
-        public void AddRasterLayer(string path)
->>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
         {
             string fileName = Path.GetFileNameWithoutExtension(path);
             GdalRasterLayer rasterLayer = new GdalRasterLayer(fileName,path);
@@ -70,7 +58,6 @@ namespace SharpMapSource.Layers
             this.map.Layers.Add(rasterLayer);
             this.map.ZoomToExtents();
         }
-<<<<<<< HEAD
 
         //public void AddPostGisLayer(string LayerName, IProvider provider)
         //{
@@ -82,11 +69,6 @@ namespace SharpMapSource.Layers
         public void RemoveLayer(ILayer layer)
         {
 
-=======
-        public void RemoveLayer(ILayer layer)
-        {
- 
->>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
         }
     }
 }
