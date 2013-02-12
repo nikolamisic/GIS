@@ -330,27 +330,27 @@ namespace SharpMap.Data.Providers
                     strSQL += DefinitionQuery + " AND ";
 
                 strSQL += "\"" + GeometryColumn + "\" && " + strGeom + " AND distance(\"" + GeometryColumn + "\", " +
-                          strGeom + ")<0";
+                          strGeom + ")<=0";
 
 #if DEBUG
                 Debug.WriteLine(string.Format("{0}\n{1}", "ExecuteIntersectionQuery: executing sql:", strSQL));
 #endif
-
+                DataSet ds1 = new DataSet();
                 using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(strSQL, conn))
                 {
                     conn.Open();
-                    adapter.Fill(ds);
+                    adapter.Fill(ds1);
                     conn.Close();
-                    if (ds.Tables.Count > 0)
+                    if (ds1.Tables.Count > 0)
                     {
-                        FeatureDataTable fdt = new FeatureDataTable(ds.Tables[0]);
-                        foreach (DataColumn col in ds.Tables[0].Columns)
+                        FeatureDataTable fdt = new FeatureDataTable(ds1.Tables[0]);
+                        foreach (DataColumn col in ds1.Tables[0].Columns)
                             if (col.ColumnName != GeometryColumn && col.ColumnName != "sharpmap_tempgeometry")
                                 fdt.Columns.Add(col.ColumnName, col.DataType, col.Expression);
-                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        foreach (DataRow dr in ds1.Tables[0].Rows)
                         {
                             FeatureDataRow fdr = fdt.NewRow();
-                            foreach (DataColumn col in ds.Tables[0].Columns)
+                            foreach (DataColumn col in ds1.Tables[0].Columns)
                                 if (col.ColumnName != GeometryColumn && col.ColumnName != "sharpmap_tempgeometry")
                                     fdr[col.ColumnName] = dr[col];
                             fdr.Geometry = GeometryFromWKB.Parse((byte[]) dr["sharpmap_tempgeometry"]);

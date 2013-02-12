@@ -389,8 +389,17 @@ namespace SharpMapSource
                     VectorLayer vLay = layer as VectorLayer;
                     if (vLay != null && vLay.LayerName != "selected layer")
                     {
-                        SharpMap.Data.Providers.NtsProvider provider = new NtsProvider(vLay.DataSource);
-                        provider.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+                        SharpMap.Data.Providers.NtsProvider provider;
+                        if (!(vLay.DataSource is SharpMap.Data.Providers.PostGIS))
+                        {
+                            provider = new NtsProvider(vLay.DataSource);
+                            provider.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+                        }
+                        else
+                        {
+                            vLay.DataSource.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
+                        }
+
 
                         //queryLayer.ExecuteIntersectionQuery(pp.GetBoundingBox().Grow(_sharpMap.Zoom / 1000), ds);
                         foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
@@ -479,8 +488,16 @@ namespace SharpMapSource
                         VectorLayer vect = layer as VectorLayer;
                         if (vect != null && vect.LayerName != "selected layer")
                         {
-                            SharpMap.Data.Providers.NtsProvider provider = new SharpMap.Data.Providers.NtsProvider(vect.DataSource);
-                            provider.ExecuteIntersectionQuery(poly, ds);
+                            SharpMap.Data.Providers.NtsProvider provider;
+                            if (!(vect.DataSource is SharpMap.Data.Providers.PostGIS))
+                            {
+                                provider = new SharpMap.Data.Providers.NtsProvider(vect.DataSource);
+                                provider.ExecuteIntersectionQuery(poly.GetBoundingBox(), ds);
+                            }
+                            else
+                            {
+                                vect.DataSource.ExecuteIntersectionQuery(poly.GetBoundingBox(), ds);
+                            }
                             //queryLayer.ExecuteIntersectionQuery(poly.GetBoundingBox(), ds);
                             foreach (SharpMap.Data.FeatureDataTable tab in ds.Tables)
                             {
