@@ -11,6 +11,21 @@
     <AssemblyName>SharpMapSource</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -87,6 +102,9 @@
       <HintPath>..\ExternalReferences\ProjNET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -105,6 +123,18 @@
     <Compile Include="Interface\AddPostGisLayer.Designer.cs">
       <DependentUpon>AddPostGisLayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface\SpatialQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface\SpatialQuery.Designer.cs">
+      <DependentUpon>SpatialQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LabelLayerAddDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LabelLayerAddDialog.Designer.cs">
+      <DependentUpon>LabelLayerAddDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LayerInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +146,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Layers\PostGisEventArgs.cs" />
+    <Compile Include="Layers\LayerManager.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +158,12 @@
     <EmbeddedResource Include="Interface\AddPostGisLayer.resx">
       <DependentUpon>AddPostGisLayer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interface\SpatialQuery.resx">
+      <DependentUpon>SpatialQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LabelLayerAddDialog.resx">
+      <DependentUpon>LabelLayerAddDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LayerInfo.resx">
       <DependentUpon>LayerInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -135,6 +172,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
@@ -205,6 +255,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\1359603429_rounded-rectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
