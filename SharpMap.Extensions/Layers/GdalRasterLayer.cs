@@ -401,13 +401,8 @@ namespace SharpMap.Layers
                 _gdalDataset = Gdal.OpenShared(_Filename, Access.GA_ReadOnly);
 
                 // have gdal read the projection
-<<<<<<< HEAD
-
                 //ZAKOMENTARISANA ZBOG BUG-A, KOJI SE SAD NE JAVLJA
                 //_projectionWkt = _gdalDataset.GetProjectionRef();
-=======
-                _projectionWkt = _gdalDataset.GetProjectionRef();
->>>>>>> bc7451994f88444e30ac2ae7a99a55828e008677
 
                 // no projection info found in the image...check for a prj
                 if (_projectionWkt == "" &&
